@@ -74,17 +74,20 @@
                         <td><%= childrens.getDate("date")%></td>
                         <td><%= childrens.getString("t_start")%></td>
                         <td><%= childrens.getString("t_stop")%></td>
-                        
-                        <% i = childrens.getInt("ID"); %>
 
-                        <td> <a href=<%= "\"registerLecture.jsp?Id=" + childrens.getInt("ID") + childrens.getInt("id") + "\"" %> >Rejestracja </a> </td>
-                    <% }%>
+                        <% i = childrens.getInt("ID");%>
+
+                        <td> <a href=<%= "\"registerLecture.jsp?ID=" + childrens.getInt("ID") + "\""%> > <%%> </a> </td>
+                        <% }%>
                     </tr>
-                    </tbody>
+                </tbody>
             </table>
 
         </div>
-                    
-                    <%= session.getAttribute("Email") %>
-</body>
+
+        <%  HttpSession ses = request.getSession();
+            String email = session.getAttribute("Email").toString();%>
+
+        <%= email%>
+    </body>
 </html>

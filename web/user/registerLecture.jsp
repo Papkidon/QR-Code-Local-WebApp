@@ -41,7 +41,7 @@
                             insertLecture = connection.prepareStatement(
                                     "INSERT INTO signed (user_id, lecture_id, mail) VALUES (?, ?, ?)");
                             findUser = connection.prepareStatement(
-                                    "SELECT ID FROM users WHERE email = ?");
+                                    "SELECT ID FROM users WHERE email = '?'");
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
@@ -89,7 +89,7 @@
                     user_id = rs.getInt("ID");
                 }
 
-                if (!email.isEmpty() && user_id > 0 && lecture_id > 0) {
+                if (!email.isEmpty() && user_id == 1 && lecture_id == 1) {
                     result = lecture.setLecture(user_id, lecture_id, email);
                 }
             %>

@@ -1,8 +1,6 @@
-<link rel ="stylesheet" href="../css/bg_animated.css" />
+<link rel ="stylesheet" href="../css/bg_gradient.css" />
 
-<div class="stars">
-<div class="twinkling">
-<div class="clouds">
+
 <div id="mydiv">
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -20,7 +18,7 @@ Class.forName("com.mysql.jdbc.Driver");
 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/childreg", "user", "haslo");
 Statement st=conn.createStatement();
 int i=st.executeUpdate("insert into users(email,password,city,school,profile,type)values('"+email+"','"+password+"','"+city+"','"+school+"','"+profile+"', 'user')");
-out.println("Dziekujemy za rejestracje! Prosze <a href='../mail/signupdata.jsp'>potwierdzic adres e-mail</a>, aby kontynuowac.");
+out.println("Dziekujemy za rejestracje! Prosze <a href='register.html'>potwierdzic adres e-mail</a>, aby kontynuowac.");
 }
 catch(Exception e)
 {
@@ -28,8 +26,5 @@ System.out.print(e);
 e.printStackTrace();
 }
 %>
-</div>
-</div>
-</div>
 </div>
 </html>

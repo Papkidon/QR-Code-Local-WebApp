@@ -48,5 +48,10 @@
         <h1>Witaj na dniach otwartych w naszej szkole!</h1>
         
 </div>
+        
+                <%  HttpSession ses = request.getSession();
+                        String email = session.getAttribute("Email").toString(); %>
+                        
+                        <%= email %>
     </body>
 </html>
