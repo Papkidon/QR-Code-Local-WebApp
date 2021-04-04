@@ -4,12 +4,19 @@
     Author     : Pawel
 --%>
 
+<%@page import="javax.mail.MessagingException"%>
+<%@page import="javax.mail.Transport"%>
+<%@page import="javax.mail.Message"%>
+<%@page import="javax.mail.internet.InternetAddress"%>
+<%@page import="javax.mail.internet.MimeMessage"%>
+<%@page import="javax.mail.Session"%>
+<%@page import="java.util.Properties"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Wyslij</title>
     </head>
     <body>
         <% // Recipient's email ID needs to be mentioned.
@@ -28,11 +35,11 @@
       properties.setProperty("mail.smtp.host", host);
 
       // Get the default Session object.
-      Session session = Session.getDefaultInstance(properties);
+      Session sess = Session.getDefaultInstance(properties);
 
       try{
          // Create a default MimeMessage object.
-         MimeMessage message = new MimeMessage(session);
+         MimeMessage message = new MimeMessage(sess);
 
          // Set From: header field of the header.
          message.setFrom(new InternetAddress(from));
@@ -49,7 +56,7 @@
 
          // Send message
          Transport.send(message);
-         System.out.println("Sent message successfully....");
+         System.out.println("Wiadomość wysłana...");
       }catch (MessagingException mex) {
          mex.printStackTrace();
       }
