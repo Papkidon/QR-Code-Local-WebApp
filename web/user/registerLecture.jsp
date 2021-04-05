@@ -31,7 +31,7 @@
                     Connection connection = null;
                     PreparedStatement insertLecture = null;
                     PreparedStatement findUser = null;
-                    ResultSet resultSet = null;
+                    PreparedStatement checkUser = null;
 
                     public Lecture() {
 
@@ -41,7 +41,9 @@
                             insertLecture = connection.prepareStatement(
                                     "INSERT INTO signed (user_id, lecture_id, mail) VALUES (?, ?, ?)");
                             findUser = connection.prepareStatement(
-                                    "SELECT ID FROM users WHERE email = '?'");
+                                    "SELECT ID FROM users WHERE email = ?");
+                            checkUser = connection.prepareStatement(
+                                    "SELECT user_id, lecture_id, mail FROM signed WHERE user_id = ? AND lecture_id = ? AND mail = ?");
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
@@ -65,6 +67,8 @@
                     }
 
                     public ResultSet getUserID(String mail) {
+                        ResultSet resultSet = null;
+
                         try {
                             findUser.setString(1, mail);
                             resultSet = findUser.executeQuery();
@@ -74,30 +78,56 @@
                         return resultSet;
 
                     }
+
+                    public ResultSet checkUser(int user_id, int lecture_id, String mail) {
+                        ResultSet resultSet = null;
+
+                        try {
+                            checkUser.setInt(1, user_id);
+                            checkUser.setInt(2, lecture_id);
+                            checkUser.setString(3, mail);
+                            resultSet = checkUser.executeQuery();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                        return resultSet;
+                    }
                 }
             %>
             <%
+
                 int result = 0;
 
-                int user_id = new Integer(0);
+                // Declare and define user_id, lecture_id, email
+                int user_id = 0;
                 String email = session.getAttribute("Email").toString();
-                int lecture_id = Integer.parseInt(request.getParameter("L_ID"));
+                int lecture_id = Integer.parseInt(request.getParameter("id"));
                 Lecture lecture = new Lecture();
                 ResultSet rs = lecture.getUserID(email);
 
-                if (rs.next()) {
+                while (rs.next()) {
                     user_id = rs.getInt("ID");
                 }
 
-                if (!email.isEmpty()) {
+                // Check if user is already signed to selected lecture
+                ResultSet rsc = lecture.checkUser(user_id, lecture_id, email);
+
+                // If is not signed, then assign this person to selected lecture
+                if (!rsc.next()) {
+
                     result = lecture.setLecture(user_id, lecture_id, email);
+
+                    if (result == 1) {
+                        out.println("Zarejestrowales sie na wykład \"" +  "");
+                    }
+                } else {
+                    out.println("Jestes juz zarejestrowany na ten wykład");
                 }
             %>
 
-            <% if (result == 1) { %>
-            Zarejestrowales sie na wyklad
-            <% }%>
-
         </div>
+            
+            <%= email %>
     </body>
 </html>

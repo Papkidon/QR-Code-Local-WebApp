@@ -26,6 +26,8 @@
 
                     Connection connection = null;
                     PreparedStatement selectChildren = null;
+                    PreparedStatement checkUser = null;
+                    PreparedStatement findUser = null;
                     ResultSet resultSet = null;
 
                     public Children() {
@@ -35,6 +37,10 @@
 
                             selectChildren = connection.prepareStatement(
                                     "SELECT id, leader_id, topic, date, t_start, t_stop, hall FROM lectures");
+                            checkUser = connection.prepareStatement(
+                                    "SELECT user_id, lecture_id, mail FROM signed WHERE user_id = ? AND lecture_id = ? AND mail = ?");
+                            findUser = connection.prepareStatement(
+                                    "SELECT ID FROM users WHERE email = ?");
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
@@ -50,12 +56,52 @@
 
                         return resultSet;
                     }
+
+                    public ResultSet checkUser(int user_id, int lecture_id, String mail) {
+                        ResultSet resultSet = null;
+
+                        try {
+                            checkUser.setInt(1, user_id);
+                            checkUser.setInt(2, lecture_id);
+                            checkUser.setString(3, mail);
+                            resultSet = checkUser.executeQuery();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                        return resultSet;
+                    }
+
+                    public ResultSet getUserID(String mail) {
+                        ResultSet resultSet = null;
+
+                        try {
+                            findUser.setString(1, mail);
+                            resultSet = findUser.executeQuery();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        return resultSet;
+
+                    }
                 }
             %>
             <%
                 Children children = new Children();
                 ResultSet childrens = children.getChildren();
-                int i = 0;
+
+                // Declare and define user_id, lecture_id, email
+                int user_id = 0;
+                String mail = session.getAttribute("Email").toString();
+                int lecture_id = Integer.parseInt(request.getParameter("id"));
+                ResultSet rs = children.getUserID(mail);
+
+                while (rs.next()) {
+                    user_id = rs.getInt("ID");
+                }
+
+                ResultSet rsc = children.checkUser(user_id, lecture_id, mail);
+
             %>
             <table class="myTable">
                 <tbody>
@@ -75,10 +121,11 @@
                         <td><%= childrens.getString("t_start")%></td>
                         <td><%= childrens.getString("t_stop")%></td>
 
-                        <% i = childrens.getInt("id");%>
-
-                        <td> <a href="registerLecture.jsp" > Rejestracja <% session.setAttribute("L_ID", request.getAttribute("id")); %> </a> </td>
-                        <% }%>
+                        <% if(!rsc.next()) { %>
+                        <td> <a href="registerLecture.jsp?id=<%=childrens.getInt("id")%>" > Rejestracja </a> </td>
+                        <% } else { %>
+                        <td> <a href="resignLecture.jsp?id=<%=childrens.getInt("id")%>" > Zrezygnuj </a> </td>
+                        <% }}%>
                     </tr>
                 </tbody>
             </table>
@@ -87,7 +134,7 @@
 
         <%  HttpSession ses = request.getSession();
             String email = session.getAttribute("Email").toString();
-            ses.setAttribute("Email", email); %>
+            ses.setAttribute("Email", email);%>
 
         <%= email%>
     </body>
