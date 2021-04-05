@@ -52,10 +52,12 @@
                     rsta.next();
                                 if (rsta.getString("password").equals(password) && rsta.getString("email").equals(email) && rsta.getString("type").equals("admin") && rsta.getInt("verified") == 1) { %>
             <form name="loginOK1" action="../admin/mainAdmin.jsp" method="POST">
+            <% session.setAttribute("Email", email); %>
                 <input type="submit" value="Przejdz do strony glownej" />
             </form>
             <% } else if (rsta.getString("password").equals(password) && rsta.getString("email").equals(email) && rsta.getString("type").equals("user") && rsta.getInt("verified") == 1) { %>
             <form name="loginOK2" action="../user/mainUser.jsp" method="POST">
+                <% session.setAttribute("Email", email); %>
                 <input type="submit" value="Przejdz do strony glownej" />
             </form>
             <% } else if (rsta.getString("password").equals(password) && rsta.getString("email").equals(email) && rsta.getString("type").equals("admin") && rsta.getInt("verified") == 0) { %>

@@ -20,7 +20,7 @@
     <body onload="displayResults()">
         <div id="mydiv">
 
-            <h1>Dodaj użytkownika</h1>
+            <h1>Rejestracja</h1>
             <%!
                 public class Lecture {
 
@@ -74,14 +74,14 @@
                         return resultSet;
 
                     }
-}
+                }
             %>
             <%
                 int result = 0;
 
-                int user_id = 0;
+                int user_id = new Integer(0);
                 String email = session.getAttribute("Email").toString();
-                int lecture_id = Integer.parseInt(request.getParameter("ID"));
+                int lecture_id = Integer.parseInt(request.getParameter("L_ID"));
                 Lecture lecture = new Lecture();
                 ResultSet rs = lecture.getUserID(email);
 
@@ -89,15 +89,15 @@
                     user_id = rs.getInt("ID");
                 }
 
-                if (!email.isEmpty() && user_id == 1 && lecture_id == 1) {
+                if (!email.isEmpty()) {
                     result = lecture.setLecture(user_id, lecture_id, email);
                 }
             %>
 
             <% if (result == 1) { %>
-            Zarejestrowales sie poprawnie na wyklad
-            <% } %>
-            
+            Zarejestrowales sie na wyklad
+            <% }%>
+
         </div>
     </body>
 </html>

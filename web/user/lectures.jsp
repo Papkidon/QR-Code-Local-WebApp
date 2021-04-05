@@ -75,9 +75,9 @@
                         <td><%= childrens.getString("t_start")%></td>
                         <td><%= childrens.getString("t_stop")%></td>
 
-                        <% i = childrens.getInt("ID");%>
+                        <% i = childrens.getInt("id");%>
 
-                        <td> <a href=<%= "\"registerLecture.jsp?ID=" + childrens.getInt("ID") + "\""%> > <%%> </a> </td>
+                        <td> <a href="registerLecture.jsp" > Rejestracja <% session.setAttribute("L_ID", request.getAttribute("id")); %> </a> </td>
                         <% }%>
                     </tr>
                 </tbody>
@@ -86,7 +86,8 @@
         </div>
 
         <%  HttpSession ses = request.getSession();
-            String email = session.getAttribute("Email").toString();%>
+            String email = session.getAttribute("Email").toString();
+            ses.setAttribute("Email", email); %>
 
         <%= email%>
     </body>
