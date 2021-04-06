@@ -109,7 +109,7 @@
                         <th>Data wykładu</th>
                         <th>Godzina rozpoczecia</th>
                         <th>Godzina zakonczenia</th>
-                        <th>Zarejestruj się</th>
+                        <th>Rejestracja/<br>rezygnacja</th>
                     </tr>
                     <% while (childrens.next()) {%>
                     <tr>

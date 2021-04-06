@@ -93,14 +93,12 @@
                 // Declare and define user_id, lecture_id, email
                 int user_id = 0;
                 String mail = session.getAttribute("Email").toString();
-                int lecture_id = Integer.parseInt(request.getParameter("id"));
                 ResultSet rs = children.getUserID(mail);
 
                 while (rs.next()) {
                     user_id = rs.getInt("ID");
                 }
-
-                ResultSet rsc = children.checkUser(user_id, lecture_id, mail);
+                
 
             %>
             <table class="myTable">
@@ -111,7 +109,7 @@
                         <th>Data wykładu</th>
                         <th>Godzina rozpoczecia</th>
                         <th>Godzina zakonczenia</th>
-                        <th>Zarejestruj się</th>
+                        <th>Rejestracja/<br>rezygnacja</th>
                     </tr>
                     <% while (childrens.next()) {%>
                     <tr>
@@ -120,6 +118,9 @@
                         <td><%= childrens.getDate("date")%></td>
                         <td><%= childrens.getString("t_start")%></td>
                         <td><%= childrens.getString("t_stop")%></td>
+                        
+                        <% int lecture_id = childrens.getInt("id"); %>
+                        <% ResultSet rsc = children.checkUser(user_id, lecture_id, mail); %>
 
                         <% if(!rsc.next()) { %>
                         <td> <a href="registerLecture.jsp?id=<%=childrens.getInt("id")%>" > Rejestracja </a> </td>

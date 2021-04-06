@@ -119,7 +119,7 @@
                     result = lecture.setLecture(user_id, lecture_id, email);
 
                     if (result == 1) {
-                        out.println("Zarejestrowales sie na wykład \"" +  "");
+                        out.println("Zarejestrowales sie na wykład \"" + request.getParameter("topic") + "\"");
                     }
                 } else {
                     out.println("Jestes juz zarejestrowany na ten wykład");
