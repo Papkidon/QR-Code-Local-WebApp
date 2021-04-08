@@ -15,6 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Rejestracja</title>
         <link rel="stylesheet" href="../css/bg_gradient.css" />
+        <script type="text/javascript" src="../js/js.js"></script>
     </head>
 
     <body onload="displayResults()">
@@ -119,15 +120,17 @@
                     result = lecture.setLecture(user_id, lecture_id, email);
 
                     if (result == 1) {
-                        out.println("Zarejestrowales sie na wykład \"" + request.getParameter("topic") + "\"");
-                    }
+                        out.println("Rejestracja udana");
+                     }
                 } else {
-                    out.println("Jestes juz zarejestrowany na ten wykład");
+                    out.println("Jestes juz zarejestrowany/a na ten wykład");
                 }
             %>
+            <br><br>
+            <button><a href="lectures.jsp">Powrót</a></button>
 
         </div>
-            
-            <%= email %>
+
+        <%= email %>
     </body>
 </html>

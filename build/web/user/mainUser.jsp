@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% Class.forName("com.mysql.jdbc.Driver"); %>
+<% Class.forName("com.mysql.jdbc.Driver");%>
 <%@page import="java.sql.*"%>
 <%@page import="java.util.Date" %>
 
@@ -17,41 +17,29 @@
         <title>Dni otwarte</title>
     </head>
     <body>
-<div id="mydiv">
-        <table>
-            <tbody>
-    <tr>
-        <td>
-        <form action="lectures.jsp">
-            <input type="submit" value="Pokaż wykłady" />
-        </form>
-        </td>
-        <td>
-        <form action="sendQuery.jsp">
-            <input type="submit" value="Odwiedzone sale" />
-        </form>
-        </td>
-        <td>
-        <form action="insertChildrenData.jsp">
-            <input type="submit" value="Dodaj uczestnika" />
-        </form>
-        </td>
-        <td>
-            <form action ="deleteChildrenData.jsp">
-                <input type="submit" value="Usun uczestnika" />
-            </form>
-        </td>
-    </tr>
-            </tbody>
-        </table>
-    
-        <h1>Witaj na dniach otwartych w naszej szkole!</h1>
-        
-</div>
-        
-                <%  HttpSession ses = request.getSession();
-                        String email = session.getAttribute("Email").toString(); %>
-                        
-                        <%= email %>
+
+        <div id="mydiv">
+
+            <%= session.getAttribute("Email").toString()%>
+
+            <h1>Witaj na dniach otwartych w naszej szkole!</h1>
+            <table class="myTable">
+                <tbody>
+                    <tr>
+                        <td>
+                            <form action="lectures.jsp">
+                                <input type="submit" value="Pokaż wykłady" />
+                            </form>
+                        </td>
+                        <td>
+                            <form action="sendQuery.jsp">
+                                <input type="submit" value="Odwiedzone sale" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
     </body>
 </html>

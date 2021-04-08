@@ -5,7 +5,7 @@
 --%>
 
 <%@page import = "java.sql.*, java.util.*"%>
-<% Class.forName("com.mysql.jdbc.Driver"); %>
+<% Class.forName("com.mysql.jdbc.Driver");%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,9 +13,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Uczestnicy</title>
         <link rel="stylesheet" href="../css/bg_gradient.css"/>
+        <script type="text/javascript" src="../js/js.js"></script>
     </head>
     <body>
         <div id="mydiv">
+            
+            <%= session.getAttribute("Email").toString()%>
+
             <h1>Wykłady</h1>
             <%!
                 public class Children {
@@ -98,7 +102,7 @@
                 while (rs.next()) {
                     user_id = rs.getInt("ID");
                 }
-                
+
 
             %>
             <table class="myTable">
@@ -118,25 +122,20 @@
                         <td><%= childrens.getDate("date")%></td>
                         <td><%= childrens.getString("t_start")%></td>
                         <td><%= childrens.getString("t_stop")%></td>
-                        
+
                         <% int lecture_id = childrens.getInt("id"); %>
                         <% ResultSet rsc = children.checkUser(user_id, lecture_id, mail); %>
 
-                        <% if(!rsc.next()) { %>
+                        <% if (!rsc.next()) {%>
                         <td> <a href="registerLecture.jsp?id=<%=childrens.getInt("id")%>" > Rejestracja </a> </td>
-                        <% } else { %>
+                        <% } else {%>
                         <td> <a href="resignLecture.jsp?id=<%=childrens.getInt("id")%>" > Zrezygnuj </a> </td>
-                        <% }}%>
+                        <% }
+                            }%>
                     </tr>
                 </tbody>
             </table>
 
         </div>
-
-        <%  HttpSession ses = request.getSession();
-            String email = session.getAttribute("Email").toString();
-            ses.setAttribute("Email", email);%>
-
-        <%= email%>
     </body>
 </html>

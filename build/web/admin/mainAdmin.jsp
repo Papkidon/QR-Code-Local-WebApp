@@ -18,7 +18,9 @@
     </head>
     <body>
         <div id ="mydiv">
-            
+
+            <%= session.getAttribute("Email").toString()%>
+
             <h1>Administrator</h1>
             <table>
                 <tbody>

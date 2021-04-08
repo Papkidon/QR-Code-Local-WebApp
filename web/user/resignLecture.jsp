@@ -15,6 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Rejestracja</title>
         <link rel="stylesheet" href="../css/bg_gradient.css" />
+        <script type="text/javascript" src="../js/js.js"></script>
     </head>
 
     <body onload="displayResults()">
@@ -121,9 +122,8 @@
                 
 
             %>
-
+            <br><br>
+            <button><a href="lectures.jsp">Powrót</a></button>
         </div>
-
-        <%= email%>
     </body>
 </html>
