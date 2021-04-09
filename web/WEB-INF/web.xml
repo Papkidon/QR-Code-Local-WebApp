@@ -11,6 +11,10 @@
         <servlet-name>VerifyCode</servlet-name>
         <servlet-class>UserVerify.VerifyCode</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GenerateQRCode</servlet-name>
+        <servlet-class>QRServlet.GenerateQRCode</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserVerify</servlet-name>
         <url-pattern>/UserVerify</url-pattern>
@@ -18,6 +22,10 @@
     <servlet-mapping>
         <servlet-name>VerifyCode</servlet-name>
         <url-pattern>/VerifyCode</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GenerateQRCode</servlet-name>
+        <url-pattern>/GenerateQRCode</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

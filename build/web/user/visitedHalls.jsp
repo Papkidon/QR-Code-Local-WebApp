@@ -1,17 +1,22 @@
-<%-- 
-    Document   : visitedHalls
-    Created on : 2021-03-28, 12:34:50
-    Author     : Pawel
---%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta name="robots" content="noindex,nofollow"/>
+        <link rel="stylesheet" href="../css/bg_gradient.css"/>
+        <title>Sale</title>
     </head>
+
     <body>
-        <h1>Hello World!</h1>
+        <div id="mydiv">
+            <form id="QRcodes" name="QRcodes" method="POST" action="visitedHalls.jsp">
+                <img src="../GenerateQRCode?qrText=http://192.168.15.111:8080/JSPDatabase/qr/gene">
+            </form>
+        </div>
     </body>
+
 </html>

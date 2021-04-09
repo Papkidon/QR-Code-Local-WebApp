@@ -32,7 +32,7 @@
                             </form>
                         </td>
                         <td>
-                            <form action="sendQuery.jsp">
+                            <form action="visitedHalls.jsp">
                                 <input type="submit" value="Odwiedzone sale" />
                             </form>
                         </td>
