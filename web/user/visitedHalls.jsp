@@ -13,9 +13,13 @@
 
     <body>
         <div id="mydiv">
-            <form id="QRcodes" name="QRcodes" method="POST" action="visitedHalls.jsp">
-                <img src="../GenerateQRCode?qrText=http://192.168.15.111:8080/JSPDatabase/qr/gene">
-            </form>
+                <img src="../GenerateQRCode?qrText=http://192.168.15.111:8080/JSPDatabase/qr/setVisitedHall.jsp?mail=<%=session.getAttribute("Email").toString()%> & h_id=100">
+                <!-- 100 -->
+                <img src="../GenerateQRCode?qrText=http://192.168.15.111:8080/JSPDatabase/qr/setVisitedHall.jsp?mail=<%=session.getAttribute("Email").toString()%>&h_id=101">
+                <!-- 101 -->
+                <img src="../GenerateQRCode?qrText=http://192.168.15.111:8080/JSPDatabase/qr/setVisitedHall.jsp?h_id=102 + mail=<%=session.getAttribute("Email").toString()%>">
+                <!-- 102 -->
+
         </div>
     </body>
 

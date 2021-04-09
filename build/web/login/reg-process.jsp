@@ -12,7 +12,7 @@
         String city = request.getParameter("city");
         String school = request.getParameter("school");
         String profile = request.getParameter("profile");
-        
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/childreg", "user", "haslo");
