@@ -44,3 +44,18 @@ body {
   min-width: 100%;
   min-height: 100%;
 }
+
+#myQrDiv {
+    display: inline-block;
+    position:absolute;
+    top:50%;
+    left:0%;
+}
+
+.mtable {
+    table-layout: fixed;
+    
+    td{
+        overflow: hidden;
+    }
+}

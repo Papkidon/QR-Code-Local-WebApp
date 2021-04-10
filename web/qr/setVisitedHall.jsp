@@ -17,10 +17,9 @@
         <link rel="stylesheet" href="../css/bg_gradient.css" />
     </head>
 
-    <body onload="displayResults()">
+    <body>
         <div id="mydiv">
 
-            <h1>Wprowadź wykładowcę</h1>
             <%!
                 public class SetVisited {
 
@@ -30,27 +29,47 @@
 
                     Connection connection = null;
                     PreparedStatement setHall = null;
-                    ResultSet resultSet = null;
+                    PreparedStatement checkHall = null;
+                    String h_id = new String();
+                    ResultSet rs;
 
                     public SetVisited() {
 
                         try {
+
                             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
-                            setHall = connection.prepareStatement(
-                                    "INSERT INTO visited (?) VALUES (1) WHERE email = '?'");
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
                     }
 
-                    public int setVisited(int hall, String email) {
+                    public int setVisited(String hall, String email) {
 
                         int result = 0;
 
+                        if (hall.equals("h100")) {
+                            h_id = "h100";
+                        } else if (hall.equals("h101")) {
+                            h_id = "h101";
+                        } else if (hall.equals("h102")) {
+                            h_id = "h102";
+                        } else if (hall.equals("h200")) {
+                            h_id = "h200";
+                        } else if (hall.equals("h201")) {
+                            h_id = "h201";
+                        } else if (hall.equals("h202")) {
+                            h_id = "h202";
+                        } else if (hall.equals("h300")) {
+                            h_id = "h300";
+                        } else {
+                            h_id = "Bad";
+                        }
+
                         try {
-                            setHall.setInt(1, hall);
-                            setHall.setString(2, email);
+                            setHall = connection.prepareStatement(
+                                    "UPDATE visited SET " + h_id + " = 1 WHERE email = ?");
+                            setHall.setString(1, email);
                             result = setHall.executeUpdate();
                         } catch (SQLException e) {
                             e.printStackTrace();
@@ -58,33 +77,67 @@
 
                         return result;
                     }
+
+                    public ResultSet checkVisited(String hall, String email) {
+
+                        if (hall.equals("h100")) {
+                            h_id = "h100";
+                        } else if (hall.equals("h101")) {
+                            h_id = "h101";
+                        } else if (hall.equals("h102")) {
+                            h_id = "h102";
+                        } else if (hall.equals("h200")) {
+                            h_id = "h200";
+                        } else if (hall.equals("h201")) {
+                            h_id = "h201";
+                        } else if (hall.equals("h202")) {
+                            h_id = "h202";
+                        } else if (hall.equals("h300")) {
+                            h_id = "h300";
+                        } else {
+                            h_id = "Bad";
+                        }
+
+                        try {
+                            checkHall = connection.prepareStatement(
+                                    "SELECT * FROM visited WHERE " + h_id + " = 1 AND email = ?");
+
+                            checkHall.setString(1, email);
+                            rs = checkHall.executeQuery();
+
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                        return rs;
+                    }
                 }
             %>
             <%
                 int result = 0;
 
-                    int h_id = 0;
-                    String email = new String();
+                String val = request.getParameter("val");
+                String h_id = val.substring(0, 4);
+                String email = val.substring(val.lastIndexOf(" ") + 1);
 
-                    if (request.getParameter("h_id") != null) {
-                        h_id = Integer.parseInt(request.getParameter("h_id"));
-                    }
+                SetVisited visit = new SetVisited();
+                ResultSet rs1 = visit.checkVisited(h_id, email);
 
-                    if (request.getParameter("email") != null) {
-                        email = request.getParameter("email");
-                    }
+                if (!rs1.next()) {
 
-                    SetVisited children = new SetVisited();
-                    result = children.setVisited(h_id, email);
-                    
-                    if(result == 1){
-                        out.println("Sala zaznaczona jako odwiedzona.");
+                    result = visit.setVisited(h_id, email);
+
+                    if (result == 1) {
+                        out.println("Sala " + h_id.substring(1, 4) + " dla emailu " + email + " zaznaczona jako odwiedzona.");
                     } else {
-                        out.println("Nie udało się oznaczyć sali jako odwiedzonej.");
+                        out.println("Nie udało się oznaczyć sali " + h_id + " jako odwiedzonej.");
                     }
+                } else {
+                    out.println("Sala " + h_id.substring(1, 4) + " jest juz zaznaczona jako odwiedzona.");
+                }
 
             %>
-            
+
         </div>
     </body>
 </html>

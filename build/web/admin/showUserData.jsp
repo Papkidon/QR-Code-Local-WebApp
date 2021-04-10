@@ -126,43 +126,43 @@
                     <tr>
                         <td><%= visited.getInt("id")%></td>
 
-                        <% if (visited.getInt("100") == 1) { %>
+                        <% if (visited.getInt("h100") == 1) { %>
                         <td>Tak</td>
                         <% } else {%>
                         <td>Nie</td>
                         <% } %>
 
-                        <% if (visited.getInt("101") == 1) { %>
+                        <% if (visited.getInt("h101") == 1) { %>
                         <td>Tak</td>
                         <% } else {%>
                         <td>Nie</td>
                         <% }%>
 
-                        <% if (visited.getInt("102") == 1) { %>
+                        <% if (visited.getInt("h102") == 1) { %>
                         <td>Tak</td>
                         <% } else {%>
                         <td>Nie</td>
                         <% }%>
 
-                        <% if (visited.getInt("200") == 1) { %>
+                        <% if (visited.getInt("h200") == 1) { %>
                         <td>Tak</td>
                         <% } else {%>
                         <td>Nie</td>
                         <% }%>
 
-                        <% if (visited.getInt("201") == 1) { %>
+                        <% if (visited.getInt("h201") == 1) { %>
                         <td>Tak</td>
                         <% } else {%>
                         <td>Nie</td>
                         <% }%>
 
-                        <% if (visited.getInt("202") == 1) { %>
+                        <% if (visited.getInt("h202") == 1) { %>
                         <td>Tak</td>
                         <% } else {%>
                         <td>Nie</td>
                         <% }%>
 
-                        <% if (visited.getInt("300") == 1) { %>
+                        <% if (visited.getInt("h300") == 1) { %>
                         <td>Tak</td>
                         <% } else {%>
                         <td>Nie</td>
