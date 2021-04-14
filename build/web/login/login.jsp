@@ -18,7 +18,7 @@
                 session.putValue("email", email);
                 String password = request.getParameter("password");
                 Class.forName("com.mysql.jdbc.Driver");
-                java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/childreg", "user", "haslo");
+                java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/childreg", "user", "haslo");
                 Statement st = con.createStatement();
                 ResultSet rs = st.executeQuery("select * from users where email='" + email + "' and password='" + password + "'");
                 try {

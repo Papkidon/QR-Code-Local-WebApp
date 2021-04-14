@@ -15,7 +15,7 @@
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/childreg", "user", "haslo");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/childreg", "user", "haslo");
             Statement st = conn.createStatement();
             Statement st2 = conn.createStatement();
             int i = st.executeUpdate("insert into users(email,password,city,school,profile,type)values('" + email + "','" + password + "','" + city + "','" + school + "','" + profile + "', 'user')");

@@ -17,14 +17,14 @@
     </head>
     <body>
         <div id="mydiv">
-            
+
             <%= session.getAttribute("Email").toString()%>
 
             <h1>Wykłady</h1>
             <%!
                 public class Children {
 
-                    String URL = "jdbc:mysql://localhost:3306/childreg";
+                    String URL = "jdbc:mysql://localhost:3307/childreg";
                     String USERNAME = "user";
                     String PASSWORD = "haslo";
 
@@ -32,7 +32,9 @@
                     PreparedStatement selectChildren = null;
                     PreparedStatement checkUser = null;
                     PreparedStatement findUser = null;
+                    PreparedStatement findLeader = null;
                     ResultSet resultSet = null;
+                    ResultSet resultSet2 = null;
 
                     public Children() {
 
@@ -45,6 +47,8 @@
                                     "SELECT user_id, lecture_id, mail FROM signed WHERE user_id = ? AND lecture_id = ? AND mail = ?");
                             findUser = connection.prepareStatement(
                                     "SELECT ID FROM users WHERE email = ?");
+                            findLeader = connection.prepareStatement(
+                                    "SELECT name, lastName, degree FROM leaders WHERE id = ?");
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
@@ -87,6 +91,12 @@
                         }
                         return resultSet;
 
+                    }
+
+                    public ResultSet getLeader(int id) {
+                        ResultSet rs = null;
+
+                        return rs;
                     }
                 }
             %>

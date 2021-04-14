@@ -45,10 +45,6 @@
                 </tr>
             </table>
 
-            <div class="btn-container">
-                <button class="btn1 btn">Click Here</Button>
-            </div>
-
         </div>
     </body>
 </html>

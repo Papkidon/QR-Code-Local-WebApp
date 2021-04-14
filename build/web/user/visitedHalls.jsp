@@ -17,7 +17,7 @@
     <%!
         public class ShowVisited {
 
-            String URL = "jdbc:mysql://localhost:3306/childreg";
+            String URL = "jdbc:mysql://localhost:3307/childreg";
             String USERNAME = "user";
             String PASSWORD = "haslo";
 
@@ -138,7 +138,7 @@
                         <% if (visited3.getInt("h101") == 0) { %>
                     <th>101</th>
                         <% } %>
-                        <% if (visited3.getInt("h100") == 0) { %>
+                        <% if (visited3.getInt("h102") == 0) { %>
                     <th>102</th>
                         <% } %>
                         <% if (visited3.getInt("h200") == 0) { %>
@@ -171,13 +171,21 @@
 
             <% ResultSet visited2 = visits.findVisited(email); %>
 
-            <table class="myTable">               
+            <table class="myTable">   
+                <% while (visited2.next()) {%>
                 <tr>
+                    <% if (visited2.getInt("h201") == 0) { %>
                     <th>201</th>
+                    <% } %>
+                    <% if (visited2.getInt("h202") == 0) { %>
                     <th>202</th>
-                    <th>203</th>
+                    <% } %>
+                    <% if (visited2.getInt("h300") == 0) { %>
                     <th>300</th>
+                    <% } %>
                 </tr>
+                <% } %>
+                <% visited2 = visits.findVisited(email); %>
                 <% while (visited2.next()) {%>
                 <tr>
                     <% if (visited2.getInt("h201") == 0) {%>

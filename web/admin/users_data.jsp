@@ -38,7 +38,7 @@
         <h1>Dane uczestników</h1>
         <%!
             public class Children {
-                String URL = "jdbc:mysql://localhost:3306/childreg";
+                String URL = "jdbc:mysql://localhost:3307/childreg";
                 String USERNAME = "user";
                 String PASSWORD = "haslo";
 
