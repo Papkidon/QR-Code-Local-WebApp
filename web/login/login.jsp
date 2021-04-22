@@ -24,7 +24,7 @@
                 try {
                     rs.next();
                     if (rs.getString("password").equals(password) && rs.getString("email").equals(email) && rs.getInt("verified") == 1) {
-                        out.println("Witaj, " + email + ".");
+                        response.sendRedirect("../user/mainUser.jsp");
                     } else if (rs.getString("password").equals(password) && rs.getString("email").equals(email) && rs.getInt("verified") == 0) {
                         out.println("Musisz potwierdzić swój adres e-mail (" + email + "), aby się zalogować!");
                     } else {
@@ -50,9 +50,9 @@
             <%
                 try {
                     rsta.next();
-                                if (rsta.getString("password").equals(password) && rsta.getString("email").equals(email) && rsta.getString("type").equals("admin") && rsta.getInt("verified") == 1) { %>
+                    if (rsta.getString("password").equals(password) && rsta.getString("email").equals(email) && rsta.getString("type").equals("admin") && rsta.getInt("verified") == 1) { %>
             <form name="loginOK1" action="../admin/mainAdmin.jsp" method="POST">
-            <% session.setAttribute("Email", email); %>
+                <% session.setAttribute("Email", email); %>
                 <input type="submit" value="Przejdz do strony glownej" />
             </form>
             <% } else if (rsta.getString("password").equals(password) && rsta.getString("email").equals(email) && rsta.getString("type").equals("user") && rsta.getInt("verified") == 1) { %>

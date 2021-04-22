@@ -7,7 +7,12 @@
              pageEncoding="UTF-8"%>
     <%@page import="java.sql.*,java.util.*"%>
     <%
+
         String email = request.getParameter("email");
+        if (email.equals("")) {
+            response.sendRedirect("register.html");
+        }
+
         String password = request.getParameter("password");
         String city = request.getParameter("city");
         String school = request.getParameter("school");

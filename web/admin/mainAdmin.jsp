@@ -78,6 +78,18 @@
                 </td>
                 </tbody>
             </table>
+
+            <center> <form action="../login/logout.jsp" method="POST">
+                    <table class="myTable">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="submit" value="Wyloguj się">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form> </center>
         </div>
     </body>
 </html>

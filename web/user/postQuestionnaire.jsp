@@ -19,6 +19,14 @@
     </head>
     <body onload="displayResults()">
 
+        <%
+            String ml = (String)session.getAttribute("Email");
+            if (ml == null) {
+                response.sendRedirect("../index.jsp");
+                return;
+            }
+        %>
+
         <div id="mydiv">
 
             <h1>Wprowadz dane</h1>
@@ -33,6 +41,7 @@
                     PreparedStatement insertChildren = null;
                     PreparedStatement findId = null;
                     PreparedStatement getLectures = null;
+                    PreparedStatement downloadLectures = null;
                     ResultSet resultSet = null;
                     ResultSet lecturesSet = null;
 
@@ -47,6 +56,8 @@
                                     "SELECT ID FROM users WHERE email = ?");
                             getLectures = connection.prepareStatement(
                                     "SELECT lecture_id FROM signed WHERE user_id = ?");
+                            downloadLectures = connection.prepareStatement(
+                                    "SELECT id, topic, mail FROM lectures INNER JOIN signed ON lectures.id = signed.lecture_id WHERE mail = ?");
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
@@ -70,10 +81,29 @@
                         return result;
                     }
 
-                    public ResultSet getLectures() {
+                    public ResultSet getID(String email) {
                         ResultSet rs = null;
 
-                        
+                        try {
+                            findId.setString(1, email);
+                            rs = findId.executeQuery();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                        return rs;
+                    }
+
+                    public ResultSet getLectures(String mail) {
+                        ResultSet rs = null;
+
+                        try {
+                            downloadLectures.setString(1, mail);
+                            rs = downloadLectures.executeQuery();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
                         return rs;
                     }
                 }
@@ -95,15 +125,30 @@
                 }
             %>
 
-            <form name="myForm" action="insertLectureData.jsp" method="POST">
-                <table border="0">
+            <%
+                int uid = 0;
+                Questionnaire qrs = new Questionnaire();
+                String email1 = session.getAttribute("Email").toString();
+                ResultSet rs_id = qrs.getID(email1);
+
+                while (rs_id.next()) {
+                    uid = rs_id.getInt("id");
+                }
+
+                ResultSet rs_lc = qrs.getLectures(email1);
+            %>
+
+            <form name="postForm" action="postQuestionnaire.jsp" method="POST">
+                <table class="myTable">
                     <tbody>
                         <tr>
-                            <td>Najlepsze wykłady</td>
-                            <td><input type="number" name="leader_id" value="" size="50" /></td>
+                            <td>Zaznacz wykłady, które najbardziej Ci się podobały</td>
+                            <% while (rs_lc.next()) {%>
+                            <td><input type="checkbox" name="lectureTopics" value="<%=rs_lc.getInt("id")%>"><%=rs_lc.getString("topic")%></td>
+                                <% }%>
                         </tr>
                         <tr>
-                            <td>Temat wykładu </td>
+                            <td> </td>
                             <td><input type="text" name="topic" value="" size="20" /></td>
                         </tr>
                         <tr>

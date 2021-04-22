@@ -27,9 +27,33 @@
         <servlet-name>GenerateQRCode</servlet-name>
         <url-pattern>/GenerateQRCode</url-pattern>
     </servlet-mapping>
+    
+    <!--Index.jsp-->
+    <servlet>
+        <servlet-name>Index</servlet-name>
+        <jsp-file>/index.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Index</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+    
+    <!--Register.html-->
+    <servlet>
+        <servlet-name>RegisterPage</servlet-name>
+        <jsp-file>/login/register.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RegisterPage</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    
+    
     <session-config>
         <session-timeout>
-            30
+            10
         </session-timeout>
     </session-config>
 </web-app>

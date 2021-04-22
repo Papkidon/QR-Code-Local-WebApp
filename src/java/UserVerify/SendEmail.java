@@ -53,7 +53,7 @@ public class SendEmail {
             
             mess.setSubject("Weryfikacja e-mail");
             
-            mess.setText("Zarejestruj adres e-mail uzywajac tego kodu : " + user.getCode());
+            mess.setText("Zarejestruj adres e-mail używając tego kodu : " + user.getCode() + "\n\nPozdrawiamy!");
             
             Transport.send(mess);
             

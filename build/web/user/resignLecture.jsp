@@ -115,7 +115,7 @@
                     result = drop.dropLecture(user_id, lecture_id, email);
 
                     if (result == 1) {
-                        out.println("Zrezygnowales z wykladu ");
+                        response.sendRedirect("lectures.jsp?#rl");
                     } else {
                         out.println("Nie udało się zrezygnować z wykładu. Spróbuj ponownie później.");
                     }

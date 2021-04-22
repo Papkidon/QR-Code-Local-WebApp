@@ -40,7 +40,7 @@
             <table>
                 <tr>
                     <td><p>Nie masz konta?</p></td>
-                    <td><a href="login/register.html">Zarejestruj się
+                    <td><a href="<%=request.getContextPath()%>/register">Zarejestruj się
                         </a></td> <!-- Koniec przycisku rejestracji -->
                 </tr>
             </table>

@@ -120,7 +120,7 @@
                     result = lecture.setLecture(user_id, lecture_id, email);
 
                     if (result == 1) {
-                        out.println("Rejestracja udana");
+                        response.sendRedirect("lectures.jsp?#rl");
                      }
                 } else {
                     out.println("Jestes juz zarejestrowany/a na ten wykład");

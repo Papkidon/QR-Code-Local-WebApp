@@ -5,7 +5,7 @@
         
         <h1>Dni Otwarte</h1>
         <br>
-        <a href="index.jsp">
+        <a href="<%=request.getContextPath()%>/index">
             <div class="btn-container">
                 <button class="btn1 btn">zapraszamy!</button>
             </div>
