@@ -4,20 +4,40 @@
     Author     : Paweł
 --%>
 
+<%@page import="DBUtils.DBQuery"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% Class.forName("com.mysql.jdbc.Driver");%>
 <%@page import="java.sql.*"%>
 <%@page import="java.util.Date" %>
+<%@page import="Admin.MainAdmin" %>
+<%@page import="Connection.MySQLConnUtils" %>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="../css/bg_gradient.css"/>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bg_gradient.css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Dni otwarte</title>
     </head>
     <body>
-        <div id ="mydiv">
+
+        <%
+
+            if (MySQLConnUtils.checkEmailNotNull(request, session, response) == 0) {
+                response.sendRedirect(request.getContextPath() + "/index");
+                return;
+            }
+
+            Connection conn = MySQLConnUtils.getMySQLConnection();
+
+            if (DBQuery.checkEmailQuery(conn, session.getAttribute("Email").toString()) == 0) {
+                response.sendRedirect(request.getContextPath() + "/index");
+                return;
+            }
+
+        %>
+
+        <div id="mydiv">
 
             <%= session.getAttribute("Email").toString()%>
 
@@ -25,19 +45,19 @@
             <table>
                 <tbody>
                 <td>
-                    <form action="lectures.jsp">
+                    <form action="${pageContext.request.contextPath}/lecturesAdmin">
                         <input type="submit" value="Pokaż wykłady" />
                     </form>
                 </td>
 
                 <td>
-                    <form action="insertLectureData.jsp">
+                    <form action="${pageContext.request.contextPath}/insertLectureAdmin">
                         <input type="submit" value="Dodaj wykład" />
                     </form>
                 </td>
 
                 <td>
-                    <form action="deleteLectureData.jsp">
+                    <form action="${pageContext.request.contextPath}/deleteLectureAdmin">
                         <input type="submit" value="Usuń wykład" />
                     </form>
                 </td>
@@ -67,7 +87,7 @@
             <table>
                 <tbody>
                 <td>
-                    <form action="showUserData.jsp">
+                    <form action="${pageContext.request.contextPath}/userDataAdmin">
                         <input type="submit" value="Pokaz uzytkownikow" />
                     </form>
                 </td>
@@ -79,7 +99,7 @@
                 </tbody>
             </table>
 
-            <center> <form action="../login/logout.jsp" method="POST">
+                    <center> <form action="${pageContext.request.contextPath}/logout" method="POST">
                     <table class="myTable">
                         <tbody>
                             <tr>

@@ -4,59 +4,31 @@
     Author     : Paweł
 --%>
 
+<%@page import="Connection.MySQLConnUtils"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% Class.forName("com.mysql.jdbc.Driver");%>
 <%@page import="java.sql.*"%>
 <%@page import="java.util.Date" %>
+<%@page import="User.MainUser" %>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="../css/bg_gradient.css"/>
+
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bg_gradient.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Dni otwarte</title>
     </head>
     <body>
 
+        <%
+
+            if (MySQLConnUtils.checkEmailNotNull(request, session, response) == 0) {
+                return;
+            }
+
+        %>
+
         <div id="mydiv">
-
-            <%!
-                public class MainUser {
-
-                    String URL = "jdbc:mysql://localhost:3307/childreg";
-                    String USERNAME = "user";
-                    String PASSWORD = "haslo";
-
-                    Connection connection = null;
-                    PreparedStatement selectChildren = null;
-                    ResultSet resultSet;
-
-                    public MainUser() {
-
-                        try {
-                            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
-                            selectChildren = connection.prepareStatement(
-                                    "SELECT * FROM visited WHERE email = ?");
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    public ResultSet checkHalls(String email) {
-
-                        try {
-                            selectChildren.setString(1, email);
-                            resultSet = selectChildren.executeQuery();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
-                        return resultSet;
-                    }
-
-                }
-            %>
 
             <%= session.getAttribute("Email").toString()%>
 
@@ -71,12 +43,12 @@
                 <tbody>
                     <tr>
                         <td>
-                            <form action="lectures.jsp">
+                            <form action="${pageContext.request.contextPath}/lectures">
                                 <input type="submit" value="Pokaż wykłady" />
                             </form>
                         </td>
                         <td>
-                            <form action="visitedHalls.jsp">
+                            <form action="${pageContext.request.contextPath}/visitedHalls">
                                 <input type="submit" value="Odwiedzone sale" />
                             </form>
                         </td>
@@ -84,17 +56,17 @@
                                 if (rs.getInt("h100") == 1 & rs.getInt("h101") == 1 & rs.getInt("h102") == 1 & rs.getInt("h200") == 1 & rs.getInt("h201") == 1 & rs.getInt("h202") == 1 & rs.getInt("h300") == 1) {
                         %>
                         <td>
-                            <form action="postQuestionnaire.jsp">
+                            <form action="${pageContext.request.contextPath}/postQuestionnaire">
                                 <input type="submit" value="Ankieta końcowa" />
                             </form>
                         </td>
                         <% }
-                            } %>
+                            }%>
                     </tr>
                 </tbody>
             </table>
 
-            <center> <form action="../login/logout.jsp" method="POST">
+            <center> <form action="${pageContext.request.contextPath}/logout" method="POST">
                     <table class="myTable">
                         <tbody>
                             <tr>

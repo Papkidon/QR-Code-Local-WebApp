@@ -5,71 +5,22 @@
 --%>
 
 <%@page import = "java.sql.*"%>
-<% Class.forName("com.mysql.jdbc.Driver"); %>
+<%@page import="Admin.ShowUserData"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Uczestnicy</title>
-        <link rel="stylesheet" href="../css/bg_gradient.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bg_gradient.css" />
     </head>
     <body>
         <div id="mydiv">
             <h1>Dane użytkowników</h1>
-            <%!
-                public class Children {
-
-                    String URL = "jdbc:mysql://localhost:3307/childreg";
-                    String USERNAME = "user";
-                    String PASSWORD = "haslo";
-
-                    Connection connection = null;
-                    PreparedStatement selectChildren = null;
-                    PreparedStatement selectVisited = null;
-                    ResultSet resultSet = null;
-                    ResultSet resultVisited = null;
-
-                    public Children() {
-
-                        try {
-                            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
-                            selectChildren = connection.prepareStatement(
-                                    "SELECT ID, email, password, school, city, profile, type, verified FROM users");
-                            selectVisited = connection.prepareStatement(
-                                    "SELECT * FROM visited");
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    public ResultSet getChildren() {
-
-                        try {
-                            resultSet = selectChildren.executeQuery();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
-                        return resultSet;
-                    }
-
-                    public ResultSet getVisited() {
-                        try {
-                            resultVisited = selectVisited.executeQuery();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
-                        return resultVisited;
-                    }
-                }
-            %>
             <%
-                Children children = new Children();
-                ResultSet childrens = children.getChildren();
-                ResultSet visited = children.getVisited();
+                ShowUserData data = new ShowUserData();
+                ResultSet childrens = data.getUserData();
+                ResultSet visited = data.getVisitedData();
             %>
             <table class="myTable">
                 <tbody>

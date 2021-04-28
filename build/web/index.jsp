@@ -10,14 +10,14 @@
     <head>
         <meta charset="ISO-8859-1">
         <title>Dni otwarte</title>
-        <link rel="stylesheet" href="css/bg_gradient.css" type="text/css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bg_gradient.css">
     </head>
 
     <body onload="displayResults()">
 
         <div id="mydiv">
 
-            <form action="login/login.jsp" method="post">
+            <form action="${pageContext.request.contextPath}/login" method="post">
                 <center><h1>Zaloguj się</h1></center>
                 <table>
                     <tbody>

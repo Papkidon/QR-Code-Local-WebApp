@@ -1,56 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-
-<% Class.forName("com.mysql.jdbc.Driver");%>
 <%@page import="java.sql.*"%>
 <%@page import="java.util.Date" %>
+<%@page import="User.VisitedHalls"%>
+<%@page import="Connection.MySQLConnUtils"%>
 <!DOCTYPE html>
 
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="robots" content="noindex,nofollow"/>
-        <link rel="stylesheet" href="../css/bg_gradient.css"/>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bg_gradient.css"/>
         <title>Sale</title>
     </head>
-
-    <%!
-        public class ShowVisited {
-
-            String URL = "jdbc:mysql://localhost:3307/childreg";
-            String USERNAME = "user";
-            String PASSWORD = "haslo";
-
-            Connection connection = null;
-            PreparedStatement findHalls = null;
-            ResultSet rs;
-
-            public ShowVisited() {
-
-                try {
-                    connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
-                    findHalls = connection.prepareStatement(
-                            "SELECT * FROM visited WHERE email = ?");
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+    <%
+            if (MySQLConnUtils.checkEmailNotNull(request, session, response) == 0) {
+                return;
             }
-
-            public ResultSet findVisited(String email) {
-
-                try {
-                    findHalls.setString(1, email);
-                    rs = findHalls.executeQuery();
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-                return rs;
-            }
-        }
     %>
 
     <body>
@@ -60,7 +26,7 @@
 
             <%
                 String email = session.getAttribute("Email").toString();
-                ShowVisited visits = new ShowVisited();
+                VisitedHalls visits = new VisitedHalls();
                 ResultSet visited = visits.findVisited(email);
             %>
 
@@ -150,19 +116,19 @@
                 <% while (visited1.next()) {%>
                 <tr>
                     <% if (visited1.getInt("h100") == 0) {%>
-                    <td><img src="../GenerateQRCode?qrText=http://192.168.15.111:8080/JSPDatabase/qr/setVisitedHall.jsp?val=h100 <%=session.getAttribute("Email").toString()%>"></td>
+                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http://192.168.15.111:8080/${pageContext.request.contextPath}/setVisitedHall?val=h100 <%=session.getAttribute("Email").toString()%>"></td>
                     <!-- 100 -->
                     <% }%>
                     <% if (visited1.getInt("h101") == 0) {%>
-                    <td><img src="../GenerateQRCode?qrText=http://192.168.15.111:8080/JSPDatabase/qr/setVisitedHall.jsp?val=h101 <%=session.getAttribute("Email").toString()%>"></td>
+                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http://192.168.15.111:8080/${pageContext.request.contextPath}/setVisitedHall?val=h101 <%=session.getAttribute("Email").toString()%>"></td>
                     <!-- 101 -->
                     <% } %>
                     <% if (visited1.getInt("h102") == 0) {%>
-                    <td><img src="../GenerateQRCode?qrText=http://192.168.15.111:8080/JSPDatabase/qr/setVisitedHall.jsp?val=h102 <%=session.getAttribute("Email").toString()%>"></td>
+                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http://192.168.15.111:8080/${pageContext.request.contextPath}/setVisitedHall?val=h102 <%=session.getAttribute("Email").toString()%>"></td>
                     <!-- 102 -->
                     <% } %>
                     <% if (visited1.getInt("h200") == 0) {%>
-                    <td><img src="../GenerateQRCode?qrText=http://192.168.15.111:8080/JSPDatabase/qr/setVisitedHall.jsp?val=h200 <%=session.getAttribute("Email").toString()%>"></td>
+                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http://192.168.15.111:8080/${pageContext.request.contextPath}/setVisitedHall?val=h200 <%=session.getAttribute("Email").toString()%>"></td>
                     <!-- 200 -->
                     <% } %>
                 </tr>
@@ -176,28 +142,28 @@
                 <tr>
                     <% if (visited2.getInt("h201") == 0) { %>
                     <th>201</th>
-                    <% } %>
-                    <% if (visited2.getInt("h202") == 0) { %>
+                        <% } %>
+                        <% if (visited2.getInt("h202") == 0) { %>
                     <th>202</th>
-                    <% } %>
-                    <% if (visited2.getInt("h300") == 0) { %>
+                        <% } %>
+                        <% if (visited2.getInt("h300") == 0) { %>
                     <th>300</th>
-                    <% } %>
+                        <% } %>
                 </tr>
                 <% } %>
                 <% visited2 = visits.findVisited(email); %>
                 <% while (visited2.next()) {%>
                 <tr>
                     <% if (visited2.getInt("h201") == 0) {%>
-                    <td><img src="../GenerateQRCode?qrText=http://192.168.15.111:8080/JSPDatabase/qr/setVisitedHall.jsp?val=h201 <%=session.getAttribute("Email").toString()%>"></td>
+                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http://192.168.15.111:8080/${pageContext.request.contextPath}/setVisitedHall?val=h201 <%=session.getAttribute("Email").toString()%>"></td>
                     <!-- 201 -->
                     <% } %>
                     <% if (visited2.getInt("h202") == 0) {%>
-                    <td><img src="../GenerateQRCode?qrText=http://192.168.15.111:8080/JSPDatabase/qr/setVisitedHall.jsp?val=h202 <%=session.getAttribute("Email").toString()%>"></td>
+                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http://192.168.15.111:8080/${pageContext.request.contextPath}/setVisitedHall?val=h202 <%=session.getAttribute("Email").toString()%>"></td>
                     <!-- 202 -->
                     <% } %>
                     <% if (visited2.getInt("h300") == 0) {%>
-                    <td><img src="../GenerateQRCode?qrText=http://192.168.15.111:8080/JSPDatabase/qr/setVisitedHall.jsp?val=h300 <%=session.getAttribute("Email").toString()%>"></td>
+                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http://192.168.15.105:8080/${pageContext.request.contextPath}/setVisitedHall?val=h300 <%=session.getAttribute("Email").toString()%>"></td>
                     <!-- 300 -->
                     <% } %>
                 </tr>

@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Uczestnicy</title>
-        <link rel="stylesheet" href="../css/bg_animated.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bg_animated.css" />
     </head>
     <body>
         <div class="stars">

@@ -10,13 +10,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Weryfikacja</title>
-        <link rel="stylesheet" type="text/css" href="../css/bg_gradient.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bg_gradient.css">
     </head>
     <body>
         <div id="mydiv">
             <span>Podaj 6-cyfrowy kod weryfikacyjny, który wysłaliśmy na twój adres e-mail.</span>
-
-            <form action="../VerifyCode" method="post">
+            <form action="${pageContext.request.contextPath}/VerifyCode" method="post">
                 <input type="text" name="authcode">
                 <input type="submit" value="Zweryfikuj">
             </form>

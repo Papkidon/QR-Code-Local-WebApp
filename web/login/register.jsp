@@ -5,51 +5,42 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.*,java.util.*"%>
+
 <!DOCTYPE html>
 <html>
     <head>
-
-        <style>
-            <%@ include file="../css/bg_gradient.css"%>
-        </style>
-
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bg_gradient.css">
         <meta charset="UTF-8">
         <title>Rejestracja</title>
     </head>
     <body>
 
+
         <div id="mydiv">
-            <form action="reg-process.jsp" method="post">
+            <form action="<%=request.getContextPath()%>/reg-process" method="post">
                 <h1>Zarejestruj się</h1>
                 <table class="myTable">
                     <tbody>
                         <tr>
                             <td>Adres e-mail : </td>
-                            <td><input type="email" name="email" /></td>
-
-                    <script type="text/javascript">
-                        if ($('#email').val() === "")
-                        {
-                            e.preventDefault();
-                        }
-                    </script><!-- comment -->
-
+                            <td><input type="email" name="email" required/></td>
                     </tr>
                     <tr>
                         <td>Hasło : </td>
-                        <td><input type="password" name="password" minlength="8" maxlength="12"/> (od 8 do 12 cyfr)</td>
+                        <td><input type="password" name="password" minlength="8" maxlength="12" required/></td>
                     </tr>
                     <tr>
                         <td>Miejscowość : </td>
-                        <td><input type="text" name="city" /></td>
+                        <td><input type="text" name="city" required/></td>
                     </tr>
                     <tr>
                         <td>Nazwa obecnej szkoły : </td>
-                        <td><input type="text" name="school" /></td>
+                        <td><input type="text" name="school" required/></td>
                     </tr>
                     <tr>
                         <td>Profil : </td>
-                        <td><input type="text" name="profile" /></td>
+                        <td><input type="text" name="profile" required/></td>
                     </tr>
                     <tr>
                         <td><input type="submit" /></td>

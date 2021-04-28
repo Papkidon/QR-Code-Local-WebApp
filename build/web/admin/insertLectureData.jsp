@@ -5,65 +5,24 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% Class.forName("com.mysql.jdbc.Driver"); %>
 <%@page import="java.sql.*"%>
 <%@page import="java.util.Date" %>
 <%@page import="java.text.SimpleDateFormat" %>
+<%@page import="Admin.InsertLectureData"%>
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Dni otwarte</title>
-        <link rel="stylesheet" href="../css/bg_gradient.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bg_gradient.css" />
     </head>
     <body onload="displayResults()">
         
         <div id="mydiv">
             
         <h1>Wprowadz dane</h1>
-        <%!
-            public class Children {
-                String URL = "jdbc:mysql://localhost:3307/childreg";
-                String USERNAME = "user";
-                String PASSWORD = "haslo";
 
-                Connection connection = null;
-                PreparedStatement insertChildren = null;
-                ResultSet resultSet = null;
-
-                public Children() {
-                
-                    try {
-                        connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
-                        insertChildren = connection.prepareStatement(
-                                "INSERT INTO lectures (leader_id, topic, date, t_start, t_stop, hall) VALUES (?, ?, ?, ?, ?, ?)");
-                    } catch (SQLException e){
-                        e.printStackTrace();
-                        }
-               }
-
-             public int setChildren(int leaderId, String topic, Timestamp date, String t_start, String t_stop, int hall) {
-                    
-                int result = 0;
-
-                try {
-                insertChildren.setInt(1, leaderId);
-                insertChildren.setString(2, topic);
-                insertChildren.setTimestamp(3, date);
-                insertChildren.setString(4, t_start);
-                insertChildren.setString(5, t_stop);
-                insertChildren.setInt(6, hall);
-                result = insertChildren.executeUpdate();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-}
-
-                return result;
-}
-    }
-            %>
             <%
                 int result = 0;
                 
@@ -99,13 +58,13 @@
                 Date date = new Date();
                 Timestamp timeStamp = new Timestamp(date.getTime());
                 
-                Children children = new Children();
-                result = children.setChildren(leader_id, topic, timeStamp, t_start, t_stop, hall);
+                InsertLectureData insdata = new InsertLectureData();
+                result = insdata.setLecture(leader_id, topic, timeStamp, t_start, t_stop, hall);
                 
                 }
             %>
         
-        <form name="myForm" action="insertLectureData.jsp" method="POST">
+            <form name="myForm" action="${pageContext.request.contextPath}/insertLectureAdmin" method="POST">
             <table border="0">
                 <tbody>
                     <tr>

@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Usun dane</title>
-        <link rel="stylesheet" href="../css/bg_gradient.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bg_gradient.css" />
     </head>
     <body onload="displayResults()">
         <div id="mydiv">
@@ -20,45 +20,45 @@
             <h1>Usuń wykład</h1>
 
             <%!
-                public class Children {
+                public class DeleteLectureData {
 
                     String URL = "jdbc:mysql://localhost:3307/childreg";
                     String USERNAME = "user";
                     String PASSWORD = "haslo";
 
                     Connection connection = null;
-                    PreparedStatement selectChildren = null;
-                    PreparedStatement deleteChildren = null;
+                    PreparedStatement selectLectures = null;
+                    PreparedStatement deleteLecture = null;
                     ResultSet resultSet = null;
 
-                    public Children() {
+                    public DeleteLectureData() {
 
                         try {
                             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
-                            selectChildren = connection.prepareStatement("SELECT id, leader_id, topic, date, t_start, t_stop, hall FROM lectures");
+                            selectLectures = connection.prepareStatement("SELECT id, leader_id, topic, date, t_start, t_stop, hall FROM lectures");
 
-                            deleteChildren = connection.prepareStatement("DELETE FROM lectures WHERE id = ?");
+                            deleteLecture = connection.prepareStatement("DELETE FROM lectures WHERE id = ?");
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
                     }
 
-                    public ResultSet getChildren() {
+                    public ResultSet getLectures() {
                         try {
-                            resultSet = selectChildren.executeQuery();
+                            resultSet = selectLectures.executeQuery();
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
                         return resultSet;
                     }
 
-                    public int deleteChildren(Integer id) {
+                    public int deleteLecture(Integer id) {
                         int result = 0;
 
                         try {
-                            deleteChildren.setInt(1, id);
-                            result = deleteChildren.executeUpdate();
+                            deleteLecture.setInt(1, id);
+                            result = deleteLecture.executeUpdate();
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
@@ -69,25 +69,25 @@
             <%
                 int result = 0;
 
-                Children children = new Children();
-                ResultSet childrens = children.getChildren();
+                DeleteLectureData deldata = new DeleteLectureData();
+                ResultSet lectures = deldata.getLectures();
 
                 Integer childrenId = new Integer(0);
 
                 if (request.getParameter("submit") != null) {
                     childrenId = Integer.parseInt(request.getParameter("iducznia"));
-                    result = children.deleteChildren(childrenId);
+                    result = deldata.deleteLecture(childrenId);
                 }
             %>
 
-            <form name="myForm" action="deleteLectureData.jsp" method="POST">
+            <form name="myForm" action="${pageContext.request.contextPath}/deleteLectureAdmin" method="POST">
                 <table border="0">
                     <tbody>
                         <tr>
                             <td>ID Ucznia </td>
                             <td><select name="iducznia">
-                                    <% while (childrens.next()) {%>
-                                    <option value="<%= childrens.getInt("id")%>"><%= childrens.getInt("id")%> <%= childrens.getInt("leader_id")%> <%= childrens.getString("topic")%> <%= childrens.getTimestamp("date")%> <%= childrens.getString("t_start")%> <%= childrens.getString("t_stop")%> <%= childrens.getInt("hall")%></option>
+                                    <% while (lectures.next()) {%>
+                                    <option value="<%= lectures.getInt("id")%>">[<%= lectures.getInt("id")%>] [<%= lectures.getInt("leader_id")%>] [<%= lectures.getString("topic")%>] [<%= lectures.getTimestamp("date").toString().substring(0, 10) %>] [<%= lectures.getString("t_start")%>] [<%= lectures.getString("t_stop")%>] [<%= lectures.getInt("hall")%>]</option>
                                     <% }%>
                                 </select></td>
                         </tr>

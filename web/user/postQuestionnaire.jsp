@@ -1,35 +1,28 @@
-<%-- 
-    Document   : insertLectureData
-    Created on : 2021-03-06, 18:30:36
-    Author     : Paweł
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% Class.forName("com.mysql.jdbc.Driver"); %>
 <%@page import="java.sql.*"%>
 <%@page import="java.util.Date" %>
 <%@page import="java.text.SimpleDateFormat" %>
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Dni otwarte</title>
-        <link rel="stylesheet" href="../css/bg_gradient.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bg_gradient.css" />
+
     </head>
-    <body onload="displayResults()">
+    <body>
 
         <%
-            String ml = (String)session.getAttribute("Email");
-            if (ml == null) {
-                response.sendRedirect("../index.jsp");
+            if (session.getAttribute("Email") == null) {
+                response.sendRedirect(request.getContextPath() + "/index");
                 return;
             }
         %>
 
         <div id="mydiv">
 
-            <h1>Wprowadz dane</h1>
+            <h1>Ankieta końcowa</h1>
             <%!
                 public class Questionnaire {
 
@@ -124,7 +117,6 @@
 
                 }
             %>
-
             <%
                 int uid = 0;
                 Questionnaire qrs = new Questionnaire();
@@ -137,8 +129,7 @@
 
                 ResultSet rs_lc = qrs.getLectures(email1);
             %>
-
-            <form name="postForm" action="postQuestionnaire.jsp" method="POST">
+            <form name="postForm" action="${pageContext.request.contextPath}/postQuestionnaire" method="POST">
                 <table class="myTable">
                     <tbody>
                         <tr>
@@ -148,44 +139,25 @@
                                 <% }%>
                         </tr>
                         <tr>
-                            <td> </td>
-                            <td><input type="text" name="topic" value="" size="20" /></td>
+                            <td>Czy podobały Ci się dni otwarte?</td>
+                            <td><input type="radio" id="howItWas1" name="hiw" value="1"><label for="howItWas1">Tak</label></td>
+                            <td><input type="radio" id="howItWas2" name="hiw" value="0"><label for="howItWas2">Nie</label></td>
                         </tr>
                         <tr>
-                            <td>Sala </td>
-                            <td><input type="number" name="hall" value="" size="50" /></td>
-                        </tr>
-                        <tr>
-                            <td>Data wykładu </td>
-                            <td><input type="date" name="date" value ="" size="60"></td>
-                        </tr>
-                        <tr>
-                            <td>Godzina rozpoczecia </td>
-                            <td><input type="text" name="t_start" value ="" size="20"></td>
-                        </tr>
-                        <tr>
-                            <td>Godzina zakończenia </td>
-                            <td><input type="text" name="t_stop" value ="" size="20"></td>
+                            <td>Jaką specjalizacją się interesujesz?</td>
+                            <td>
+                                <select id="spec">
+                                    <option value="matfiz">Matematyka-fizyka</option>
+                                    <option value="biochem">Biologia-chemia</option>
+                                    <option value="human">Humanistyczna</option>
+                                </select>
                         </tr>
                     </tbody>
                 </table>
 
-                <input type="hidden" name="hidden" value="<%= result%>" />
-
                 <input type="submit" value="Potwierdź" name="submit" />
                 <input type="reset" value="Resetuj" name="reset" />
             </form>
-
-            <script language="JavaScript">
-                <!--
-                function displayResults()
-                {
-                    if (document.myForm.hidden.value === 1) {
-                        alert("Dane zostaly wprowadzone");
-                    }
-                }
-                //-->
-            </script>
 
         </div>
     </body>

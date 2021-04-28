@@ -3,6 +3,12 @@
     <welcome-file-list>
         <welcome-file>landingPage.jsp</welcome-file>
     </welcome-file-list>
+    <!-- ServletContextListener - deregistering JDBC driver when necessary -->
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>Listener.ContextListener</listener-class>
+    </listener>
+    <!-- User Verification -->
     <servlet>
         <servlet-name>UserVerify</servlet-name>
         <servlet-class>UserVerify.UserVerify</servlet-class>
@@ -11,10 +17,12 @@
         <servlet-name>VerifyCode</servlet-name>
         <servlet-class>UserVerify.VerifyCode</servlet-class>
     </servlet>
+    <!-- Generate QR Code -->
     <servlet>
         <servlet-name>GenerateQRCode</servlet-name>
         <servlet-class>QRServlet.GenerateQRCode</servlet-class>
     </servlet>
+    <!-- User Verification/QR Code Mapping -->
     <servlet-mapping>
         <servlet-name>UserVerify</servlet-name>
         <url-pattern>/UserVerify</url-pattern>
@@ -27,33 +35,164 @@
         <servlet-name>GenerateQRCode</servlet-name>
         <url-pattern>/GenerateQRCode</url-pattern>
     </servlet-mapping>
-    
     <!--Index.jsp-->
     <servlet>
         <servlet-name>Index</servlet-name>
         <jsp-file>/index.jsp</jsp-file>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>Index</servlet-name>
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
-    
-    <!--Register.html-->
+    <!-- register.jsp -->
     <servlet>
         <servlet-name>RegisterPage</servlet-name>
         <jsp-file>/login/register.jsp</jsp-file>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>RegisterPage</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
-    
+    <!-- login.jsp -->
+    <servlet>
+        <servlet-name>LoginPage</servlet-name>
+        <jsp-file>/login/login.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginPage</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <!-- logout.jsp -->
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <jsp-file>/login/logout.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <!-- reg-process.jsp -->
+    <servlet>
+        <servlet-name>RegProcess</servlet-name>
+        <jsp-file>/login/reg-process.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegProcess</servlet-name>
+        <url-pattern>/reg-process</url-pattern>
+    </servlet-mapping>
+    <!-- mainUser.jsp -->
+    <servlet>
+        <servlet-name>MainUser</servlet-name>
+        <jsp-file>/user/mainUser.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MainUser</servlet-name>
+        <url-pattern>/main</url-pattern>
+    </servlet-mapping>
+    <!-- user/lectures.jsp -->
+    <servlet>
+        <servlet-name>Lectures</servlet-name>
+        <jsp-file>/user/lectures.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Lectures</servlet-name>
+        <url-pattern>/lectures</url-pattern>
+    </servlet-mapping>
+    <!-- registerLecture.jsp -->
+    <servlet>
+        <servlet-name>RegLecture</servlet-name>
+        <jsp-file>/user/registerLecture.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegLecture</servlet-name>
+        <url-pattern>/reg</url-pattern>
+    </servlet-mapping>
+    <!-- resignLecture.jsp -->
+    <servlet>
+        <servlet-name>ResLecture</servlet-name>
+        <jsp-file>/user/resignLecture.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ResLecture</servlet-name>
+        <url-pattern>/res</url-pattern>
+    </servlet-mapping>
+    <!-- visitedHalls.jsp -->
+    <servlet>
+        <servlet-name>VisitedHalls</servlet-name>
+        <jsp-file>/user/visitedHalls.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>VisitedHalls</servlet-name>
+        <url-pattern>/visitedHalls</url-pattern>
+    </servlet-mapping>
+    <!-- postQuestionnaire.jsp -->
+    <servlet>
+        <servlet-name>PostQuestionnaire</servlet-name>
+        <jsp-file>/user/postQuestionnaire.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PostQuestionnaire</servlet-name>
+        <url-pattern>/postQuestionnaire</url-pattern>
+    </servlet-mapping>
+    <!-- qr/setVisitedHall.jsp -->
+    <servlet>
+        <servlet-name>SetVisitedHall</servlet-name>
+        <jsp-file>/qr/setVisitedHall.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SetVisitedHall</servlet-name>
+        <url-pattern>/setVisitedHall</url-pattern>
+    </servlet-mapping>
+    <!-- ADMIN -->
+    <!-- admin/lectures.jsp -->
+    <servlet>
+        <servlet-name>AdminLectures</servlet-name>
+        <jsp-file>/admin/showLectureData.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminLectures</servlet-name>
+        <url-pattern>/lecturesAdmin</url-pattern>
+    </servlet-mapping>
+    <!-- admin/mainAdmin.jsp -->
+    <servlet>
+        <servlet-name>MainAdmin</servlet-name>
+        <jsp-file>/admin/mainAdmin.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MainAdmin</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <!-- admin/insertLectureData.jsp -->
+    <servlet>
+        <servlet-name>InsertLectureData</servlet-name>
+        <jsp-file>/admin/insertLectureData.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InsertLectureData</servlet-name>
+        <url-pattern>/insertLectureAdmin</url-pattern>
+    </servlet-mapping>
+    <!-- admin/showUserData.jsp -->
+    <servlet>
+        <servlet-name>ShowUserData</servlet-name>
+        <jsp-file>/admin/showUserData.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShowUserData</servlet-name>
+        <url-pattern>/userDataAdmin</url-pattern>
+    </servlet-mapping>
+    <!-- admin/deleteLectureData.jsp -->
+    <servlet>
+        <servlet-name>DeleteLectureData</servlet-name>
+        <jsp-file>/admin/deleteLectureData.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteLectureData</servlet-name>
+        <url-pattern>/deleteLectureAdmin</url-pattern>
+    </servlet-mapping>
     
     <session-config>
         <session-timeout>
-            10
+            30
         </session-timeout>
     </session-config>
 </web-app>

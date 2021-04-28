@@ -5,7 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.*"%>
 <!DOCTYPE html>
 
 <% request.getSession().removeAttribute("Email");%>
-<% response.sendRedirect("../index.jsp");%>
+<% response.sendRedirect(request.getContextPath() + "/index");%>
