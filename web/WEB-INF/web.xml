@@ -189,6 +189,15 @@
         <servlet-name>DeleteLectureData</servlet-name>
         <url-pattern>/deleteLectureAdmin</url-pattern>
     </servlet-mapping>
+    <!-- admin/showLectureData.jsp -->
+    <servlet>
+        <servlet-name>ShowLeaderData</servlet-name>
+        <jsp-file>/admin/showLeaderData.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShowLeaderData</servlet-name>
+        <url-pattern>/showLeaderAdmin</url-pattern>
+    </servlet-mapping>
     
     <session-config>
         <session-timeout>

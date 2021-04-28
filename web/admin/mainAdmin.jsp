@@ -67,7 +67,7 @@
             <table>
                 <tbody>
                 <td>
-                    <form action="showLeaderData.jsp">
+                    <form action="${pageContext.request.contextPath}/showLeaderAdmin">
                         <input type="submit" value="Pokaż wykładowców"/>
                     </form>
                 </td>

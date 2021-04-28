@@ -4,59 +4,24 @@
     Author     : Paweł
 --%>
 
-<%@page import = "java.sql.*"%>
-<% Class.forName("com.mysql.jdbc.Driver"); %>
+<%@page import="java.sql.*"%>
+<%@page import="Admin.ShowLeaderData"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Uczestnicy</title>
-        <link rel="stylesheet" href="../css/bg_gradient.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bg_gradient.css" />
     </head>
     <body>
         <div id="mydiv">
             <h1>Dane wykładowców</h1>
-            <%!
-                public class Children {
-
-                    String URL = "jdbc:mysql://localhost:3307/childreg";
-                    String USERNAME = "user";
-                    String PASSWORD = "haslo";
-
-                    Connection connection = null;
-                    PreparedStatement selectChildren = null;
-                    ResultSet resultSet = null;
-
-                    public Children() {
-
-                        try {
-                            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
-                            selectChildren = connection.prepareStatement(
-                                    "SELECT id, name, lastName, degree FROM leaders");
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    public ResultSet getChildren() {
-
-                        try {
-                            resultSet = selectChildren.executeQuery();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
-                        return resultSet;
-                    }
-                }
-            %>
             <%
-                Children children = new Children();
-                ResultSet childrens = children.getChildren();
+                ShowLeaderData leader = new ShowLeaderData();
+                ResultSet leaders = leader.getLeaders();
             %>
-            <table border="1">
+            <table class="myTable">
                 <tbody>
                     <tr>
                         <td>ID</td>
@@ -64,12 +29,12 @@
                         <td>Nazwisko</td>
                         <td>Stopien</td>
                     </tr>
-                    <% while (childrens.next()) {%>
+                    <% while (leaders.next()) {%>
                     <tr>
-                        <td><%= childrens.getInt("id")%></td>
-                        <td><%= childrens.getString("name")%></td>
-                        <td><%= childrens.getString("lastName")%></td>
-                        <td><%= childrens.getString("degree")%></td>
+                        <td><%= leaders.getInt("id")%></td>
+                        <td><%= leaders.getString("name")%></td>
+                        <td><%= leaders.getString("lastName")%></td>
+                        <td><%= leaders.getString("degree")%></td>
                         <% }%>
                     </tr>
                 </tbody>
