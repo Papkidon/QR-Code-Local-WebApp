@@ -19,23 +19,31 @@
 
     <body>
         <div id="mydiv">
-            <%
-                int result = 0;
 
-                HttpSession ses = request.getSession();
-                String email = ses.getAttribute("Email").toString();
+            <form action="<%=request.getContextPath()%>/reg-process" method="post">
+                <table class="myTable">
+                    <tr>
+                        <td>Hasło : </td>
+                        <td><input type="password" name="password" minlength="8" required/></td>
+                    </tr>
+                    <tr>
+                        <td>Miejscowość : </td>
+                        <td><input type="text" name="city" required/></td>
+                    </tr>
+                    <tr>
+                        <td>Nazwa obecnej szkoły : </td>
+                        <td><input type="text" name="school" required/></td>
+                    </tr>
+                    <tr>
+                        <td>Profil : </td>
+                        <td><input type="text" name="profile" required/></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" /></td>
+                    </tr>
+                </table>
+            </form>
 
-                VerificationSuccessfull verifs = new VerificationSuccessfull();
-                result = verifs.setVerification(email);
-            %>
-
-            <% if (result == 1) {%>
-            <h1>Konto <% out.println(email); %> zostało potwierdzone.</h1>
-            <p>Możesz już <a href="${pageContext.request.contextPath}/index">się zalogować.</a></p>
-            <% } else { %>
-            <h1>Nie udało się potwierdzić konta. Proszę spróbować później.</h1>
-            <% } %>
-            
         </div>
     </body>
 </html>

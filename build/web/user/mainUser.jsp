@@ -34,31 +34,32 @@
 
             <%
                 String email = session.getAttribute("Email").toString();
+                
                 MainUser mainUser = new MainUser();
+                
                 ResultSet rs = mainUser.checkHalls(email);
+                ResultSet rs2 = mainUser.checkQuestionnaire(email);
+                
+                if(rs2.next()){
+                    response.sendRedirect(request.getContextPath() + "/finishPage");
+                }
             %>
 
             <h1>Witaj na dniach otwartych w naszej szkole!</h1>
-            <table class="myTable">
+            <table>
                 <tbody>
                     <tr>
-                        <td>
-                            <form action="${pageContext.request.contextPath}/lectures">
-                                <input type="submit" value="Pokaż wykłady" />
-                            </form>
+                        <td>                         
+                            <p class="link1"><a href="${pageContext.request.contextPath}/lectures">Wykłady</a></p>
                         </td>
                         <td>
-                            <form action="${pageContext.request.contextPath}/visitedHalls">
-                                <input type="submit" value="Odwiedzone sale" />
-                            </form>
+                            <p class="link1"><a href="${pageContext.request.contextPath}/visitedHalls"> | Odwiedzone sale</a></p>
                         </td>
                         <% while (rs.next()) {
                                 if (rs.getInt("h100") == 1 & rs.getInt("h101") == 1 & rs.getInt("h102") == 1 & rs.getInt("h200") == 1 & rs.getInt("h201") == 1 & rs.getInt("h202") == 1 & rs.getInt("h300") == 1) {
                         %>
                         <td>
-                            <form action="${pageContext.request.contextPath}/postQuestionnaire">
-                                <input type="submit" value="Ankieta końcowa" />
-                            </form>
+                            <p class="link1"><a href="${pageContext.request.contextPath}/postQuestionnaire"> | Ankieta końcowa</a></p>
                         </td>
                         <% }
                             }%>
@@ -66,17 +67,7 @@
                 </tbody>
             </table>
 
-            <center> <form action="${pageContext.request.contextPath}/logout" method="POST">
-                    <table class="myTable">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <input type="submit" value="Wyloguj się">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form> </center>
+            <center> <p class="link2"><a href="${pageContext.request.contextPath}/logout">Wyloguj się</a></p> </center>
 
         </div>
     </body>

@@ -1,11 +1,11 @@
 <%-- 
-    Document   : deleteLeaderData
+    Document   : deleteUserData
     Created on : 2021-03-07, 09:32:58
     Author     : Paweł
 --%>
 
-<%@page import = "java.sql.*" %>
-<%@page import="Admin.DeleteLeaderData"%>
+<%@page import="java.sql.*" %>
+<%@page import="Admin.DeleteUserData"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="/admin" /> 
 <!DOCTYPE html>
@@ -18,30 +18,31 @@
     <body onload="displayResults()">
         <div id="mydiv">
 
-            <h1>Usuń wykładowcę</h1>
-            
+            <h1>Usuń użytkownika</h1>
+
             <%
                 int result = 0;
 
-                DeleteLeaderData leader = new DeleteLeaderData();
-                ResultSet leaders = leader.getLeader();
+                DeleteUserData deldata = new DeleteUserData();
+                ResultSet users = deldata.getUsers();
 
-                Integer leaderId = new Integer(0);
+                Integer userId = new Integer(0);
 
                 if (request.getParameter("submit") != null) {
-                    leaderId = Integer.parseInt(request.getParameter("idWykladowcy"));
-                    result = leader.deleteLeader(leaderId);
+                    userId = Integer.parseInt(request.getParameter("iducznia"));
+                    result = deldata.deleteUser(userId);
+                    response.sendRedirect(request.getContextPath() + "/userDataAdmin");
                 }
             %>
 
-            <form name="myForm" action="${pageContext.request.contextPath}/deleteLeaderAdmin" method="POST">
+            <form name="myForm" action="${pageContext.request.contextPath}/deleteUserAdmin" method="POST">
                 <table border="0">
                     <tbody>
                         <tr>
-                            <td>ID Wykładowcy </td>
-                            <td><select name="idWykladowcy">
-                                    <% while (leaders.next()) {%>
-                                    <option value="<%= leaders.getInt("id")%>">[<%= leaders.getInt("id")%>] [<%= leaders.getString("name")%>] [<%= leaders.getString("lastName")%>] [<%= leaders.getString("degree")%>]</option>
+                            <td>Usuń uczestnika </td>
+                            <td><select name="iducznia">
+                                    <% while (users.next()) {%>
+                                    <option value="<%= users.getInt("ID")%>">[<%= users.getInt("ID")%>] [<%= users.getString("email")%>] [<%= users.getString("password")%>] [<%= users.getString("city")%>] [<%= users.getString("profile")%>] [<%= users.getString("type")%>] [<%= users.getInt("verified")%>]</option>
                                     <% }%>
                                 </select></td>
                         </tr>
@@ -57,7 +58,7 @@
             <!--
             function displayResults()
             {
-                if (document.myForm.hidden.value === 1) {
+                if (document.myForm.hidden.value == 1) {
                     alert("Dane zostaly usuniete");
                 }
             }

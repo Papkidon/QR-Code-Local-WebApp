@@ -7,6 +7,7 @@
 <%@page import = "java.sql.*" %>
 <% Class.forName("com.mysql.jdbc.Driver"); %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="/admin" /> 
 <!DOCTYPE html>
 <html>
     <head>

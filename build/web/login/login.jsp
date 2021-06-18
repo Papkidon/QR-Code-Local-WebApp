@@ -57,10 +57,9 @@
                 try {
                     rsta.next();
                     if (rsta.getString("password").equals(password) && rsta.getString("email").equals(email) && rsta.getString("type").equals("admin") && rsta.getInt("verified") == 1) { %>
-            <form name="loginOK1" action="../admin/mainAdmin.jsp" method="POST">
-                <% session.setAttribute("Email", email); %>
-                <% response.sendRedirect(request.getContextPath() + "/admin"); %>
-                <input type="submit" value="Przejdz do strony glownej" />
+            <form name="loginOK1" action="${pageContext.request.contextPath}/lecturesAdmin" method="POST">
+                <% session.setAttribute("AdminEmail", email); %>
+                <% response.sendRedirect(request.getContextPath() + "/lecturesAdmin"); %>
             </form>
             <% } else if (rsta.getString("password").equals(password) && rsta.getString("email").equals(email) && rsta.getString("type").equals("user") && rsta.getInt("verified") == 1) { %>
             <form name="loginOK2" action="../user/mainUser.jsp" method="POST">

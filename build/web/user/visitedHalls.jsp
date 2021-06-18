@@ -4,6 +4,8 @@
 <%@page import="java.util.Date" %>
 <%@page import="User.VisitedHalls"%>
 <%@page import="Connection.MySQLConnUtils"%>
+<%@page import="java.net.InetAddress"%>
+<%@page import="java.net.DatagramSocket"%>
 <!DOCTYPE html>
 
 <html>
@@ -14,9 +16,9 @@
         <title>Sale</title>
     </head>
     <%
-            if (MySQLConnUtils.checkEmailNotNull(request, session, response) == 0) {
-                return;
-            }
+        if (MySQLConnUtils.checkEmailNotNull(request, session, response) == 0) {
+            return;
+        }
     %>
 
     <body>
@@ -28,6 +30,13 @@
                 String email = session.getAttribute("Email").toString();
                 VisitedHalls visits = new VisitedHalls();
                 ResultSet visited = visits.findVisited(email);
+            %>
+
+            <%
+                String ip = "";
+                DatagramSocket socket = new DatagramSocket();
+                socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+                ip = socket.getLocalAddress().getHostAddress();
             %>
 
             <table class="myTable">
@@ -116,19 +125,19 @@
                 <% while (visited1.next()) {%>
                 <tr>
                     <% if (visited1.getInt("h100") == 0) {%>
-                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http://192.168.15.111:8080/${pageContext.request.contextPath}/setVisitedHall?val=h100 <%=session.getAttribute("Email").toString()%>"></td>
+                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http://<%=ip%>:8080/${pageContext.request.contextPath}/setVisitedHall?val=h100 <%=session.getAttribute("Email").toString()%>"></td>
                     <!-- 100 -->
                     <% }%>
                     <% if (visited1.getInt("h101") == 0) {%>
-                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http://192.168.15.111:8080/${pageContext.request.contextPath}/setVisitedHall?val=h101 <%=session.getAttribute("Email").toString()%>"></td>
+                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http:///<%=ip%>:8080/${pageContext.request.contextPath}/setVisitedHall?val=h101 <%=session.getAttribute("Email").toString()%>"></td>
                     <!-- 101 -->
                     <% } %>
                     <% if (visited1.getInt("h102") == 0) {%>
-                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http://192.168.15.111:8080/${pageContext.request.contextPath}/setVisitedHall?val=h102 <%=session.getAttribute("Email").toString()%>"></td>
+                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http:///<%=ip%>:8080/${pageContext.request.contextPath}/setVisitedHall?val=h102 <%=session.getAttribute("Email").toString()%>"></td>
                     <!-- 102 -->
                     <% } %>
                     <% if (visited1.getInt("h200") == 0) {%>
-                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http://192.168.15.111:8080/${pageContext.request.contextPath}/setVisitedHall?val=h200 <%=session.getAttribute("Email").toString()%>"></td>
+                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http:///<%=ip%>:8080/${pageContext.request.contextPath}/setVisitedHall?val=h200 <%=session.getAttribute("Email").toString()%>"></td>
                     <!-- 200 -->
                     <% } %>
                 </tr>
@@ -155,15 +164,15 @@
                 <% while (visited2.next()) {%>
                 <tr>
                     <% if (visited2.getInt("h201") == 0) {%>
-                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http://192.168.15.111:8080/${pageContext.request.contextPath}/setVisitedHall?val=h201 <%=session.getAttribute("Email").toString()%>"></td>
+                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http:///<%=ip%>:8080/${pageContext.request.contextPath}/setVisitedHall?val=h201 <%=session.getAttribute("Email").toString()%>"></td>
                     <!-- 201 -->
                     <% } %>
                     <% if (visited2.getInt("h202") == 0) {%>
-                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http://192.168.15.111:8080/${pageContext.request.contextPath}/setVisitedHall?val=h202 <%=session.getAttribute("Email").toString()%>"></td>
+                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http:///<%=ip%>:8080/${pageContext.request.contextPath}/setVisitedHall?val=h202 <%=session.getAttribute("Email").toString()%>"></td>
                     <!-- 202 -->
                     <% } %>
                     <% if (visited2.getInt("h300") == 0) {%>
-                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http://192.168.15.105:8080/${pageContext.request.contextPath}/setVisitedHall?val=h300 <%=session.getAttribute("Email").toString()%>"></td>
+                    <td><img src="${pageContext.request.contextPath}/GenerateQRCode?qrText=http:///<%=ip%>:8080/${pageContext.request.contextPath}/setVisitedHall?val=h300 <%=session.getAttribute("Email").toString()%>"></td>
                     <!-- 300 -->
                     <% } %>
                 </tr>

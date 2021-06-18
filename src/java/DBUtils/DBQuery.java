@@ -23,7 +23,7 @@ public class DBQuery {
 
     public static int registerQuery1(Connection con, String email, String password, String city, String school, String profile) throws SQLException {
         Statement st = con.createStatement();
-        int i = st.executeUpdate("insert into users(email,password,city,school,profile,type)values('" + email + "','" + password + "','" + city + "','" + school + "','" + profile + "', 'user')");
+        int i = st.executeUpdate("insert into users(email,password,city,school,profile,type,verified)values('" + email + "','" + password + "','" + city + "','" + school + "','" + profile + "', 'user', 1)");
         return i;
     }
 

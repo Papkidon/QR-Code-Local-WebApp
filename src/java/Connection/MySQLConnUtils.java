@@ -50,7 +50,7 @@ public class MySQLConnUtils {
 
     public static int checkEmailIfAdmin(HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
 
-        if (session.getAttribute("Email") == null) {
+        if (session.getAttribute("AdminEmail") == null) {
             response.sendRedirect(request.getContextPath() + "/index");
             return 0;
         } else {

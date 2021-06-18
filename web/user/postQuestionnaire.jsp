@@ -3,6 +3,7 @@
 <%@page import="java.sql.*"%>
 <%@page import="java.util.Date" %>
 <%@page import="java.text.SimpleDateFormat" %>
+<%@page import="User.Questionnaire"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,84 +24,7 @@
         <div id="mydiv">
 
             <h1>Ankieta końcowa</h1>
-            <%!
-                public class Questionnaire {
 
-                    String URL = "jdbc:mysql://localhost:3307/childreg";
-                    String USERNAME = "user";
-                    String PASSWORD = "haslo";
-
-                    Connection connection = null;
-                    PreparedStatement insertChildren = null;
-                    PreparedStatement findId = null;
-                    PreparedStatement getLectures = null;
-                    PreparedStatement downloadLectures = null;
-                    ResultSet resultSet = null;
-                    ResultSet lecturesSet = null;
-
-                    public Questionnaire() {
-
-                        try {
-                            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
-                            insertChildren = connection.prepareStatement(
-                                    "INSERT INTO lectures (leader_id, topic, date, t_start, t_stop, hall) VALUES (?, ?, ?, ?, ?, ?)");
-                            findId = connection.prepareStatement(
-                                    "SELECT ID FROM users WHERE email = ?");
-                            getLectures = connection.prepareStatement(
-                                    "SELECT lecture_id FROM signed WHERE user_id = ?");
-                            downloadLectures = connection.prepareStatement(
-                                    "SELECT id, topic, mail FROM lectures INNER JOIN signed ON lectures.id = signed.lecture_id WHERE mail = ?");
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    public int setQuestionnaire(int user_id, String email, String best_lectures, int intention, String impression) {
-
-                        int result = 0;
-
-                        try {
-                            insertChildren.setInt(1, user_id);
-                            insertChildren.setString(2, email);
-                            insertChildren.setString(3, best_lectures);
-                            insertChildren.setInt(4, intention);
-                            insertChildren.setString(5, impression);
-                            result = insertChildren.executeUpdate();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
-                        return result;
-                    }
-
-                    public ResultSet getID(String email) {
-                        ResultSet rs = null;
-
-                        try {
-                            findId.setString(1, email);
-                            rs = findId.executeQuery();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
-                        return rs;
-                    }
-
-                    public ResultSet getLectures(String mail) {
-                        ResultSet rs = null;
-
-                        try {
-                            downloadLectures.setString(1, mail);
-                            rs = downloadLectures.executeQuery();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
-                        return rs;
-                    }
-                }
-            %>
             <%
                 int result = 0;
 
@@ -129,27 +53,31 @@
 
                 ResultSet rs_lc = qrs.getLectures(email1);
             %>
-            <form name="postForm" action="${pageContext.request.contextPath}/postQuestionnaire" method="POST">
+            <form name="postForm" action="${pageContext.request.contextPath}/setQuestionnaire" method="POST">
                 <table class="myTable">
                     <tbody>
                         <tr>
                             <td>Zaznacz wykłady, które najbardziej Ci się podobały</td>
                             <% while (rs_lc.next()) {%>
-                            <td><input type="checkbox" name="lectureTopics" value="<%=rs_lc.getInt("id")%>"><%=rs_lc.getString("topic")%></td>
+                            <td><input type="checkbox" name="lectureTopics" value="<%=rs_lc.getString("topic")%>"><%=rs_lc.getString("topic")%></td>
                                 <% }%>
                         </tr>
                         <tr>
-                            <td>Czy podobały Ci się dni otwarte?</td>
-                            <td><input type="radio" id="howItWas1" name="hiw" value="1"><label for="howItWas1">Tak</label></td>
-                            <td><input type="radio" id="howItWas2" name="hiw" value="0"><label for="howItWas2">Nie</label></td>
+                            <td>Czy bierzesz naszą szkołę pod uwagę?</td>
+                            <td>
+                                <select name="intention">
+                                    <option id="1" value="1">Tak</option>
+                                    <option id="0" value="0">Nie</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td>Jaką specjalizacją się interesujesz?</td>
                             <td>
-                                <select id="spec">
-                                    <option value="matfiz">Matematyka-fizyka</option>
-                                    <option value="biochem">Biologia-chemia</option>
-                                    <option value="human">Humanistyczna</option>
+                                <select name="spec">
+                                    <option id="matfiz" value="matfiz">Matematyka-fizyka</option>
+                                    <option id="biochem" value="biochem">Biologia-chemia</option>
+                                    <option id="human" value="human">Humanistyczna</option>
                                 </select>
                         </tr>
                     </tbody>

@@ -5,64 +5,43 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% Class.forName("com.mysql.jdbc.Driver"); %>
+<%@page import="Admin.InsertLeaderData"%>
 <%@page import="java.sql.*"%>
 <%@page import="java.util.Date" %>
+<%@page import="Connection.MySQLConnUtils"%>
+<%@page import="DBUtils.DBQuery"%>
+
+<jsp:include page="/admin" /> 
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Dni otwarte</title>
-        <link rel="stylesheet" href="../css/bg_gradient.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bg_gradient.css" />
     </head>
+
+    <%
+
+        if (MySQLConnUtils.checkEmailIfAdmin(request, session, response) == 0) {
+            response.sendRedirect(request.getContextPath() + "/index");
+            return;
+        }
+
+        Connection conn = MySQLConnUtils.getMySQLConnection();
+
+        if (DBQuery.checkEmailQuery(conn, session.getAttribute("AdminEmail").toString()) == 0) {
+            response.sendRedirect(request.getContextPath() + "/index");
+            return;
+        }
+
+    %>
 
     <body onload="displayResults()">
         <div id="mydiv">
 
             <h1>Wprowadź wykładowcę</h1>
-            <%!
-                public class Children {
-
-                    String URL = "jdbc:mysql://localhost:3307/childreg";
-                    String USERNAME = "user";
-                    String PASSWORD = "haslo";
-
-                    Connection connection = null;
-                    PreparedStatement insertChildren = null;
-                    ResultSet resultSet = null;
-
-                    public Children() {
-
-                        try {
-                            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
-                            insertChildren = connection.prepareStatement(
-                                    "INSERT INTO leaders (name, lastName, degree) VALUES (?, ?, ?)");
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    public int setChildren(String name, String lastName, String degree) {
-
-                        int result = 0;
-
-                        try {
-                            insertChildren.setString(1, name);
-                            insertChildren.setString(2, lastName);
-                            insertChildren.setString(3, degree);
-                            result = insertChildren.executeUpdate();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
-                        return result;
-                    }
-                }
-            %>
-            <%
-                int result = 0;
+            <%                int result = 0;
 
                 if (request.getParameter("submit") != null) {
 
@@ -82,13 +61,13 @@
                         degree = request.getParameter("degree");
                     }
 
-                    Children children = new Children();
-                    result = children.setChildren(name, lastName, degree);
+                    InsertLeaderData leader = new InsertLeaderData();
+                    result = leader.setLeader(name, lastName, degree);
 
                 }
             %>
 
-            <form name="myForm" action="insertLeaderData.jsp" method="POST">
+            <form name="myForm" action="${pageContext.request.contextPath}/insertLeaderAdmin" method="POST">
                 <table border="0">
                     <tbody>
                         <tr>

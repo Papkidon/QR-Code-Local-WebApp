@@ -25,11 +25,14 @@ public class SendEmail {
         boolean test = false;
 
         String toEmail = user.getEmail();
-        String fromEmail = "dni.otwarte@o2.pl";
-        String password = "1234DniOtwarte!@";
+        // E-mail address used for sending verification e-mail
+        String fromEmail = "email@email.com";
+        // E-mail password
+        String password = "password";
 
         try {
 
+            // SMTP properties
             Properties pr = new Properties();
             pr.setProperty("mail.smtp.host", "poczta.o2.pl");
             pr.setProperty("mail.smtp.port", "587");

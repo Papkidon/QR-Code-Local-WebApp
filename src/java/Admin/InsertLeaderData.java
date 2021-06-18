@@ -3,46 +3,49 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UserVerify;
+package Admin;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import Connection.MySQLConnUtils;
 
 /**
  *
  * @author Pawel
  */
-
-public class VerificationSuccessfull {
+public class InsertLeaderData {
 
     Connection connection = null;
-    PreparedStatement insertVerification = null;
+    PreparedStatement insertLeader = null;
     ResultSet resultSet = null;
 
-    public VerificationSuccessfull() {
+    public InsertLeaderData() {
 
         try {
             connection = MySQLConnUtils.getMySQLConnection();
 
-            insertVerification = connection.prepareStatement(
-                    "UPDATE users SET verified=1 WHERE email=?");
+            insertLeader = connection.prepareStatement(
+                    "INSERT INTO leaders (name, lastName, degree) VALUES (?, ?, ?)");
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public int setVerification(String email) {
+    public int setLeader(String name, String lastName, String degree) {
 
         int result = 0;
 
         try {
-            insertVerification.setString(1, email);
-            result = insertVerification.executeUpdate();
+            insertLeader.setString(1, name);
+            insertLeader.setString(2, lastName);
+            insertLeader.setString(3, degree);
+            result = insertLeader.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return result;
     }
-    
 }

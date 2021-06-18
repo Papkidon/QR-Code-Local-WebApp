@@ -7,6 +7,8 @@
 <%@page import="java.sql.*"%>
 <%@page import="Admin.ShowLeaderData"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="/admin" /> 
+
 <!DOCTYPE html>
 <html>
     <head>

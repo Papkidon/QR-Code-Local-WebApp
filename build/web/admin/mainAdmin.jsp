@@ -15,101 +15,74 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bg_gradient.css"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bg_gradient.css" />
         <title>Dni otwarte</title>
     </head>
-    <body>
 
-        <%
+    <%
 
-            if (MySQLConnUtils.checkEmailNotNull(request, session, response) == 0) {
-                response.sendRedirect(request.getContextPath() + "/index");
-                return;
-            }
+        if (MySQLConnUtils.checkEmailIfAdmin(request, session, response) == 0) {
+            response.sendRedirect(request.getContextPath() + "/index");
+            return;
+        }
 
-            Connection conn = MySQLConnUtils.getMySQLConnection();
+        Connection conn = MySQLConnUtils.getMySQLConnection();
 
-            if (DBQuery.checkEmailQuery(conn, session.getAttribute("Email").toString()) == 0) {
-                response.sendRedirect(request.getContextPath() + "/index");
-                return;
-            }
+        if (DBQuery.checkEmailQuery(conn, session.getAttribute("AdminEmail").toString()) == 0) {
+            response.sendRedirect(request.getContextPath() + "/index");
+            return;
+        }
 
-        %>
+    %>
 
-        <div id="mydiv">
+    <p><%= session.getAttribute("AdminEmail").toString()%></p>
 
-            <%= session.getAttribute("Email").toString()%>
+    <h1>Administrator</h1>
+    <table>
+        <tbody>
+        <td>
+            <p class="link1"><a href="${pageContext.request.contextPath}/lecturesAdmin">Pokaż wykłady |</a></p>
+        </td>
 
-            <h1>Administrator</h1>
-            <table>
-                <tbody>
-                <td>
-                    <form action="${pageContext.request.contextPath}/lecturesAdmin">
-                        <input type="submit" value="Pokaż wykłady" />
-                    </form>
-                </td>
+        <td>
+            <p class="link1"><a href="${pageContext.request.contextPath}/insertLectureAdmin">Dodaj wykład |</a></p>
+        </td>
 
-                <td>
-                    <form action="${pageContext.request.contextPath}/insertLectureAdmin">
-                        <input type="submit" value="Dodaj wykład" />
-                    </form>
-                </td>
+        <td>
+            <p class="link1"><a href="${pageContext.request.contextPath}/deleteLectureAdmin">Usuń wykład</a></p>
+        </td>
+    </tbody>
+</table>
 
-                <td>
-                    <form action="${pageContext.request.contextPath}/deleteLectureAdmin">
-                        <input type="submit" value="Usuń wykład" />
-                    </form>
-                </td>
-                </tbody>
-            </table>
+<table>
+    <tbody>
+    <td>
+        <p class="link1"><a href="${pageContext.request.contextPath}/showLeaderAdmin">Pokaż wykładowców |</a></p>
+    </td>
+    <td>
+        <p class="link1"><a href="${pageContext.request.contextPath}/insertLeaderAdmin">Dodaj wykładowcę |</a></p>
+    </td>
+    <td>
+        <p class="link1"><a href="${pageContext.request.contextPath}/deleteLeaderAdmin">Usuń wykładowcę</a></p>
+    </td>
+</tbody>
+</table>
 
-            <table>
-                <tbody>
-                <td>
-                    <form action="${pageContext.request.contextPath}/showLeaderAdmin">
-                        <input type="submit" value="Pokaż wykładowców"/>
-                    </form>
-                </td>
-                <td>
-                    <form action="insertLeaderData.jsp">
-                        <input type="submit" value="Dodaj wykładowcę" />
-                    </form>
-                </td>
-                <td>
-                    <form action="deleteLeaderData.jsp">
-                        <button><input type="submit" value="Usuń wykładowcę" /></button>
-                    </form>
-                </td>
-                </tbody>
-            </table>
+<table>
+    <tbody>
+    <td>
+        <p class="link1"><a href="${pageContext.request.contextPath}/userDataAdmin">Pokaż użytkowników |</a></p>
+    </td>
+    <td>
+        <p class="link1"><a href="${pageContext.request.contextPath}/insertUserAdmin">Dodaj użytkownika |</a></p>
+    </td>
+    <td>
+        <p class="link1"><a href="${pageContext.request.contextPath}/deleteUserAdmin">Usuń użytkownika</a></p>
+    </td>
+</tbody>
+</table>
 
-            <table>
-                <tbody>
-                <td>
-                    <form action="${pageContext.request.contextPath}/userDataAdmin">
-                        <input type="submit" value="Pokaz uzytkownikow" />
-                    </form>
-                </td>
-                <td>
-                    <form action="insertUserData.jsp">
-                        <input type="submit" value="Dodaj uzytkownika" />
-                    </form>
-                </td>
-                </tbody>
-            </table>
+<h2><p class="link2"><a href="${pageContext.request.contextPath}/logout">Wyloguj się</a></p></h2>
 
-                    <center> <form action="${pageContext.request.contextPath}/logout" method="POST">
-                    <table class="myTable">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <input type="submit" value="Wyloguj się">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form> </center>
-        </div>
-    </body>
 </html>

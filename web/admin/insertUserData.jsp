@@ -5,82 +5,25 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% Class.forName("com.mysql.jdbc.Driver"); %>
+<%@page import="Admin.InsertUserData"%>
 <%@page import="java.sql.*"%>
 <%@page import="java.util.Date" %>
+<jsp:include page="/admin" /> 
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Dni otwarte</title>
-        <link rel="stylesheet" href="../css/bg_gradient.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bg_gradient.css" />
     </head>
 
     <body onload="displayResults()">
         <div id="mydiv">
+            
 
             <h1>Dodaj użytkownika</h1>
-            <%!
-                public class Children {
 
-                    String URL = "jdbc:mysql://localhost:3307/childreg";
-                    String USERNAME = "user";
-                    String PASSWORD = "haslo";
-
-                    Connection connection = null;
-                    PreparedStatement insertChildren = null;
-                    PreparedStatement insertVisited = null;
-                    ResultSet resultSet = null;
-
-                    public Children() {
-
-                        try {
-                            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
-                            insertChildren = connection.prepareStatement(
-                                    "INSERT INTO users (email, password, school, city, profile, type, verified) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                            insertVisited = connection.prepareStatement(
-                                    "INSERT INTO visited (id) values (default)");
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    public int setChildren(String email, String password, String school, String city, String profile, String type, int verified) {
-
-                        int result = 0;
-
-                        try {
-                            insertChildren.setString(1, email);
-                            insertChildren.setString(2, password);
-                            insertChildren.setString(3, school);
-                            insertChildren.setString(4, city);
-                            insertChildren.setString(5, profile);
-                            insertChildren.setString(6, type);
-                            insertChildren.setInt(7, verified);
-
-                            result = insertChildren.executeUpdate();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
-                        return result;
-                    }
-
-                    public int setVisited() {
-                        int result = 0;
-
-                        try {
-                            result = insertVisited.executeUpdate();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
-                        return result;
-                    }
-                }
-            %>
             <%
                 int result1 = 0;
                 int result2 = 0;
@@ -122,38 +65,38 @@
                     if (request.getParameter("verified") != null) {
                         verified = Integer.parseInt(request.getParameter("verified"));
                     }
-                    Children children = new Children();
-                    result1 = children.setChildren(email, password, school, city, profile, type, verified);
-                    result2 = children.setVisited();
+                    InsertUserData user = new InsertUserData();
+                    result1 = user.setUser(email, password, school, city, profile, type, verified);
+                    result2 = user.setVisited();
 
                 }
             %>
 
-            <form name="myForm" action="insertUserData.jsp" method="POST">
+            <form name="myForm" action="${pageContext.request.contextPath}/insertUserAdmin" method="POST">
                 <table border="0">
                     <tbody>
                         <tr>
                             <td>E-Mail </td>
-                            <td><input type="email" name="email" value="" size="50" /></td>
+                            <td><input type="email" name="email" value="" size="50" required/></td>
                         </tr>
                         <tr>
                             <td>Hasło </td>
-                            <td><input type="password" name="password" value="" size="50" /></td>
+                            <td><input type="password" name="password" value="" size="50"  required/></td>
                         </tr>
 
                         <tr>
                             <td>Szkoła </td>
-                            <td><input type="text" name="school" value="" size="50" /></td>
+                            <td><input type="text" name="school" value="" size="50" required/></td>
                         </tr>
 
                         <tr>
                             <td>Miejscowość </td>
-                            <td><input type="text" name="city" value="" size="50" /></td>
+                            <td><input type="text" name="city" value="" size="50" required/></td>
                         </tr>
 
                         <tr>
                             <td>Profil </td>
-                            <td><input type="password" name="profile" value="" size="50" /></td>
+                            <td><input type="password" name="profile" value="" size="50" required/></td>
                         </tr>
 
                         <tr>

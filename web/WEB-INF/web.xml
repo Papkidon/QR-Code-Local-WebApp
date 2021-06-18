@@ -53,6 +53,15 @@
         <servlet-name>RegisterPage</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
+        <!-- checkRegister.jsp -->
+    <servlet>
+        <servlet-name>CheckRegister</servlet-name>
+        <jsp-file>/login/checkRegister.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CheckRegister</servlet-name>
+        <url-pattern>/checkReg</url-pattern>
+    </servlet-mapping>
     <!-- login.jsp -->
     <servlet>
         <servlet-name>LoginPage</servlet-name>
@@ -134,6 +143,15 @@
         <servlet-name>PostQuestionnaire</servlet-name>
         <url-pattern>/postQuestionnaire</url-pattern>
     </servlet-mapping>
+    <!-- insertQuestionnaire.jsp -->
+        <servlet>
+        <servlet-name>SetQuestionnaire</servlet-name>
+        <jsp-file>/user/insertQuestionnaire.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SetQuestionnaire</servlet-name>
+        <url-pattern>/setQuestionnaire</url-pattern>
+    </servlet-mapping>
     <!-- qr/setVisitedHall.jsp -->
     <servlet>
         <servlet-name>SetVisitedHall</servlet-name>
@@ -142,6 +160,15 @@
     <servlet-mapping>
         <servlet-name>SetVisitedHall</servlet-name>
         <url-pattern>/setVisitedHall</url-pattern>
+    </servlet-mapping>
+        <!-- user/finishPage.jsp -->
+    <servlet>
+        <servlet-name>FinishPage</servlet-name>
+        <jsp-file>/user/finishPage.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FinishPage</servlet-name>
+        <url-pattern>/finishPage</url-pattern>
     </servlet-mapping>
     <!-- ADMIN -->
     <!-- admin/lectures.jsp -->
@@ -197,6 +224,42 @@
     <servlet-mapping>
         <servlet-name>ShowLeaderData</servlet-name>
         <url-pattern>/showLeaderAdmin</url-pattern>
+    </servlet-mapping>
+    <!-- admin/insertLeaderData.jsp -->
+    <servlet>
+        <servlet-name>InsertLeaderData</servlet-name>
+        <jsp-file>/admin/insertLeaderData.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InsertLeaderData</servlet-name>
+        <url-pattern>/insertLeaderAdmin</url-pattern>
+    </servlet-mapping>
+    <!-- admin/deleteLeaderData.jsp -->
+    <servlet>
+        <servlet-name>DeleteLeaderData</servlet-name>
+        <jsp-file>/admin/deleteLeaderData.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteLeaderData</servlet-name>
+        <url-pattern>/deleteLeaderAdmin</url-pattern>
+    </servlet-mapping>
+    <!-- admin/insertUserData.jsp -->
+    <servlet>
+        <servlet-name>InsertUserData</servlet-name>
+        <jsp-file>/admin/insertUserData.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InsertUserData</servlet-name>
+        <url-pattern>/insertUserAdmin</url-pattern>
+    </servlet-mapping>
+    <!-- admin/deleteUserData.jsp -->
+    <servlet>
+        <servlet-name>DeleteUserData</servlet-name>
+        <jsp-file>/admin/deleteUserData.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteUserData</servlet-name>
+        <url-pattern>/deleteUserAdmin</url-pattern>
     </servlet-mapping>
     
     <session-config>

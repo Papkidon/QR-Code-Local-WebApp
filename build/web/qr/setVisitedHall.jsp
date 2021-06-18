@@ -25,8 +25,9 @@
                 int result = 0;
 
                 String val = request.getParameter("val");
+                
                 String h_id = val.substring(0, 4);
-                String email = val.substring(val.lastIndexOf(" ") + 1);
+                String email = val.substring(5);
 
                 SetVisitedHall visit = new SetVisitedHall();
                 ResultSet rs1 = visit.checkVisited(h_id, email);
@@ -38,7 +39,7 @@
                     if (result == 1) {
                         out.println("Sala " + h_id.substring(1, 4) + " dla emailu " + email + " zaznaczona jako odwiedzona.");
                     } else {
-                        out.println("Nie udało się oznaczyć sali " + h_id + " jako odwiedzonej.");
+                        out.println("Nie udało się oznaczyć sali " + h_id + " dla emailu " + email + " jako odwiedzonej.");
                     }
                 } else {
                     out.println("Sala " + h_id.substring(1, 4) + " jest juz zaznaczona jako odwiedzona.");

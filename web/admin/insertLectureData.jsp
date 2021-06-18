@@ -9,6 +9,7 @@
 <%@page import="java.util.Date" %>
 <%@page import="java.text.SimpleDateFormat" %>
 <%@page import="Admin.InsertLectureData"%>
+<jsp:include page="/admin" /> 
 
 <!DOCTYPE html>
 <html>

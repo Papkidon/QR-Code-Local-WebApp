@@ -7,12 +7,13 @@
 <%@page import = "java.sql.*"%>
 <%@page import="Admin.ShowLectureData"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="/admin" /> 
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Uczestnicy</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bg_gradient.css"/>
+        
     </head>
     <body>
         <div id="mydiv">
